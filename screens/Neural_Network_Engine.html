@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&amp;family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+
+
+
+<link rel="stylesheet" href="/src/style.css"></head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-32">
+<!-- TopAppBar Component -->
+<header class="fixed top-0 w-full z-50 bg-[#121212]/80 backdrop-blur-lg border-b border-white/5 shadow-none flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-red-600 dark:text-red-500" data-icon="movie">movie</span>
+<h1 class="font-['Be_Vietnam_Pro'] text-sm tracking-[0.2em] font-black uppercase text-red-600 dark:text-red-500">CINECAST</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/10 hover:opacity-80 transition-opacity cursor-pointer">
+<img alt="Profile" data-alt="A high-contrast cinematic headshot of a person with dramatic side-lighting, reflecting a noir aesthetic. The subject is set against a deep charcoal background with subtle red rim lighting on the shoulders. The overall mood is mysterious and professional, fitting an exclusive cinema brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr8jcc8q9i8A0UgpHT55n7XyfTzsX38q1FhLilzkRpSAqZH3wpoyAlluFoLJq5dqvAyJu9WqDASmGO7auEQqf5G6pvHrV0HIaXPjfDAviIvGzgBIrdMn3FJtP1HaB7EMgFOpSe9z1tqcHahTZGMVek9_QlxPPJizqg75anSmslpAN5caty55J1n02KLUDpN3WaMlQJWN1Ipx2-o-PG2WIj6HlhFpo5a5zmLgI3r3eUCaO_oBvqr69aNJDTvz5zOxYN3kggy-I50Ds"/>
+</div>
+</header>
+<<main class="pt-20 px-8 w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- LEFT SIDEBAR: Genre Controls & Vectorization -->
+    <div class="lg:col-span-4 space-y-6 flex flex-col">
+        
+        <!-- Scrollable Genre Section -->
+        <div class="glass-panel p-6 rounded-xl space-y-6">
+            <div>
+                <p class="mono-tech text-[11px] text-zinc-500 uppercase tracking-widest mb-4">Core Genre Preference</p>
+                <div class="grid grid-cols-2 gap-4" id="genre-sliders-container">
+                    <div class="flex flex-col gap-2"><span class="mono-tech text-[10px] text-zinc-300 font-bold uppercase">Action</span><input type="range" id="slider-action" min="0" max="100" value="50" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-red-500"></div>
+                    <div class="flex flex-col gap-2"><span class="mono-tech text-[10px] text-zinc-300 font-bold uppercase">Sci-Fi</span><input type="range" id="slider-scifi" min="0" max="100" value="50" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"></div>
+                    <div class="flex flex-col gap-2"><span class="mono-tech text-[10px] text-zinc-300 font-bold uppercase">Drama</span><input type="range" id="slider-drama" min="0" max="100" value="50" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500"></div>
+                    <div class="flex flex-col gap-2"><span class="mono-tech text-[10px] text-zinc-300 font-bold uppercase">Comedy</span><input type="range" id="slider-comedy" min="0" max="100" value="50" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-green-500"></div>
+                    <div class="flex flex-col gap-2"><span class="mono-tech text-[10px] text-zinc-300 font-bold uppercase">Horror</span><input type="range" id="slider-horror" min="0" max="100" value="50" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-red-700"></div>
+                    <div class="flex flex-col gap-2"><span class="mono-tech text-[10px] text-zinc-300 font-bold uppercase">Thriller</span><input type="range" id="slider-thriller" min="0" max="100" value="50" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-orange-500"></div>
+                    <div class="flex flex-col gap-2"><span class="mono-tech text-[10px] text-zinc-300 font-bold uppercase">Romance</span><input type="range" id="slider-romance" min="0" max="100" value="50" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-pink-500"></div>
+                    <div class="flex flex-col gap-2"><span class="mono-tech text-[10px] text-zinc-300 font-bold uppercase">Fantasy</span><input type="range" id="slider-fantasy" min="0" max="100" value="50" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500"></div>
+                </div>
+            </div>
+
+            <details class="group border-t border-white/5 pt-4">
+                <summary class="mono-tech text-[10px] text-zinc-500 uppercase cursor-pointer hover:text-zinc-300 transition-colors select-none flex items-center gap-2">
+                    <span class="group-open:rotate-90 transition-transform">▸</span> Sub-Genre Fine-Tuning
+                </summary>
+                <div class="mt-4 space-y-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                    <!-- Action Subs -->
+                    <div class="space-y-3">
+                        <span class="mono-tech text-[9px] text-red-500/60 uppercase">Action Subs</span>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Superhero</span><input type="range" id="slider-superhero" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-red-500"></div>
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Heist Film</span><input type="range" id="slider-heist" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-red-500"></div>
+                        </div>
+                    </div>
+                    <!-- Sci-Fi Subs -->
+                    <div class="space-y-3">
+                        <span class="mono-tech text-[9px] text-cyan-500/60 uppercase">Sci-Fi Subs</span>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Cyberpunk</span><input type="range" id="slider-cyberpunk" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"></div>
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Space Opera</span><input type="range" id="slider-spaceopera" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"></div>
+                        </div>
+                    </div>
+                    <!-- Drama Subs -->
+                    <div class="space-y-3">
+                        <span class="mono-tech text-[9px] text-blue-500/60 uppercase">Drama Subs</span>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Historical</span><input type="range" id="slider-historical" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500"></div>
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Legal/Courtroom</span><input type="range" id="slider-legal" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500"></div>
+                        </div>
+                    </div>
+                    <!-- Comedy Subs -->
+                    <div class="space-y-3">
+                        <span class="mono-tech text-[9px] text-green-500/60 uppercase">Comedy Subs</span>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Dark Comedy</span><input type="range" id="slider-darkcomedy" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-green-500"></div>
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Slapstick</span><input type="range" id="slider-slapstick" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-green-500"></div>
+                        </div>
+                    </div>
+                    <!-- Horror Subs -->
+                    <div class="space-y-3">
+                        <span class="mono-tech text-[9px] text-red-700/60 uppercase">Horror Subs</span>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Psychological</span><input type="range" id="slider-psychological" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-red-700"></div>
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Slasher</span><input type="range" id="slider-slasher" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-red-700"></div>
+                        </div>
+                    </div>
+                    <!-- Thriller Subs -->
+                    <div class="space-y-3">
+                        <span class="mono-tech text-[9px] text-orange-500/60 uppercase">Thriller Subs</span>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Crime</span><input type="range" id="slider-crime" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-orange-500"></div>
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Espionage</span><input type="range" id="slider-espionage" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-orange-500"></div>
+                        </div>
+                    </div>
+                    <!-- Romance Subs -->
+                    <div class="space-y-3">
+                        <span class="mono-tech text-[9px] text-pink-500/60 uppercase">Romance Subs</span>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Rom-Com</span><input type="range" id="slider-romcom" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-pink-500"></div>
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Tragedy</span><input type="range" id="slider-tragedy" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-pink-500"></div>
+                        </div>
+                    </div>
+                    <!-- Fantasy Subs -->
+                    <div class="space-y-3">
+                        <span class="mono-tech text-[9px] text-violet-500/60 uppercase">Fantasy Subs</span>
+                        <div class="grid grid-cols-1 gap-3">
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">High Fantasy</span><input type="range" id="slider-highfantasy" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500"></div>
+                            <div class="flex flex-col gap-1"><span class="mono-tech text-[8px] text-zinc-500 uppercase">Urban Fantasy</span><input type="range" id="slider-urbanfantasy" min="0" max="100" value="50" class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-violet-500"></div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- Enhanced Input Vectorization Viz -->
+        <div class="glass-panel p-5 rounded-xl flex flex-col gap-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="mono-tech text-xs text-zinc-400 uppercase tracking-widest font-bold block">Feature Vectorization</span>
+                    <span class="mono-tech text-[10px] text-zinc-600">User × Movie Tensor — FLOAT32</span>
+                </div>
+                <span class="mono-tech text-[10px] text-emerald-400/80 border border-emerald-500/20 bg-emerald-500/5 px-2 py-0.5 rounded">LIVE</span>
+            </div>
+
+            <div class="border border-white/5 rounded-lg bg-black/40 p-4 font-mono text-xs">
+                <div class="grid grid-cols-4 gap-2 w-full text-center" id="vectorization-grid">
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-yellow-400 font-bold text-[11px]">[0.50]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Action</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-yellow-400 font-bold text-[11px]">[0.50]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Sci-Fi</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-yellow-400 font-bold text-[11px]">[0.50]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Drama</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-yellow-400 font-bold text-[11px]">[0.50]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Comedy</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-yellow-400 font-bold text-[11px]">[0.50]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Horror</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-yellow-400 font-bold text-[11px]">[0.50]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Thriller</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-yellow-400 font-bold text-[11px]">[0.50]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Romance</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-yellow-400 font-bold text-[11px]">[0.50]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Fantasy</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-cyan-400 font-bold text-[11px]">[0.65]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Age</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-cyan-400 font-bold text-[11px]">[0.80]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Watch Hist</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-cyan-400 font-bold text-[11px]">[0.72]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Avg Rating</span></div>
+                    <div class="flex flex-col gap-1 group"><div class="vec-cell bg-white/5 p-2 rounded border border-white/5 transition-all duration-300 text-cyan-400 font-bold text-[11px]">[0.91]</div><span class="mono-tech text-[8px] text-zinc-600 uppercase group-hover:text-zinc-400 transition-colors">Pop Score</span></div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-white/5">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="mono-tech text-[8px] text-zinc-600 uppercase">Activation Strength</span>
+                        <span class="mono-tech text-[8px] text-zinc-600">x' = x / 100</span>
+                    </div>
+                    <div class="w-full h-1.5 rounded-full overflow-hidden" style="background: linear-gradient(to right, #1e293b, #b45309, #facc15, #4ade80)"></div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-950/30 border border-indigo-500/10 rounded-lg p-3">
+                <p class="mono-tech text-[9px] text-zinc-500 leading-relaxed">
+                    <span class="text-indigo-400 font-bold uppercase">Logic:</span> Slider values (0-100) are normalized to [0,1]. These 12 signals form the <span class="text-violet-400">input tensor</span> for the recommendation pass.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT CONTENT: Network Visualization & Results -->
+    <div class="lg:col-span-8 space-y-6">
+        
+        <!-- Neural Network Visualization -->
+        <section class="relative h-[600px] w-full glass-panel rounded-xl overflow-hidden border-white/10 flex items-center justify-center">
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-950/20 via-transparent to-violet-950/30"></div>
+            <div class="relative w-full h-full p-4" id="network-container">
+                <svg id="network-svg" class="w-full h-full" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur result="blur" stdDeviation="3"></feGaussianBlur>
+                            <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+                        </filter>
+                        <filter id="glow-strong" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur result="blur" stdDeviation="6"></feGaussianBlur>
+                            <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+                        </filter>
+                        <linearGradient id="edge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.3"/>
+                            <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.3"/>
+                        </linearGradient>
+                    </defs>
+                    <g id="edges-group"></g>
+                    <g id="nodes-group"></g>
+                </svg>
+            </div>
+            <div class="absolute top-4 left-4">
+                <span class="mono-tech text-[12px] text-zinc-300 font-bold tracking-widest uppercase" id="batch-info">Batch: 25 Example: 809</span>
+            </div>
+            <div class="absolute bottom-4 left-4">
+                <span class="mono-tech text-[10px] text-zinc-500 uppercase tracking-widest">Neural Core: Operational</span>
+            </div>
+        </section>
+
+        <!-- Stats & Graphs Bento -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            
+            <div class="md:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Confidence Score -->
+                <div class="glass-panel p-6 rounded-xl flex flex-col justify-between h-32">
+                    <span class="mono-tech text-xs text-zinc-500 uppercase tracking-widest">Prediction Confidence</span>
+                    <div class="flex items-baseline gap-3">
+                        <span class="font-headline-md text-4xl text-red-500" id="stat-confidence">84.2<span class="text-on-surface text-lg ml-1">%</span></span>
+                        <span class="mono-tech text-xs text-zinc-600 hidden" id="stat-confidence-prev">(was 84.2%)</span>
+                    </div>
+                </div>
+                <!-- Model Accuracy -->
+                <div class="glass-panel p-6 rounded-xl flex flex-col justify-between h-32">
+                    <span class="mono-tech text-xs text-zinc-500 uppercase tracking-widest">Model Accuracy</span>
+                    <div class="flex items-baseline gap-3">
+                        <span class="font-headline-md text-4xl text-emerald-500" id="stat-accuracy">96.8<span class="text-zinc-500 text-lg ml-1">%</span></span>
+                        <span class="mono-tech text-xs text-zinc-600 hidden" id="stat-accuracy-prev">(was 96.8%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Architecture & Profile (Model Depth) -->
+            <div class="md:col-span-12 glass-panel p-6 rounded-xl flex items-center justify-between">
+                <span class="mono-tech text-sm text-zinc-400 uppercase tracking-widest">Network Architecture & Profile</span>
+                <div class="flex items-center gap-4 w-1/2">
+                    <span class="mono-tech text-[11px] text-zinc-400 whitespace-nowrap">MODEL DEPTH</span>
+                    <input type="range" id="slider-depth" min="1" max="5" value="5" class="flex-1 h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-zinc-400">
+                    <span class="mono-tech text-lg text-zinc-200 w-6 text-center" id="depth-label">5</span>
+                </div>
+            </div>
+
+            <!-- Input Node Configuration Panel -->
+            <div class="md:col-span-12 glass-panel p-6 rounded-xl">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="mono-tech text-sm text-zinc-500 uppercase tracking-widest">Input Node Configuration</span>
+                    <div class="flex gap-3">
+                        <button id="btn-select-all" class="mono-tech text-xs text-zinc-400 hover:text-white border border-white/10 hover:border-white/30 px-4 py-1.5 rounded transition-colors bg-white/5 tracking-wider">SELECT ALL</button>
+                        <button id="btn-clear-all" class="mono-tech text-xs text-zinc-400 hover:text-white border border-white/10 hover:border-white/30 px-4 py-1.5 rounded transition-colors bg-white/5 tracking-wider">CLEAR ALL</button>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-3" id="input-toggle-container">
+                    <!-- Chips generated by JS -->
+                </div>
+            </div>
+
+            <!-- Performance Graphs -->
+            <div class="md:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-panel p-6 rounded-xl flex flex-col h-64">
+                    <span class="mono-tech text-xs text-zinc-500 uppercase mb-4 tracking-widest">Training Cost (Loss)</span>
+                    <div class="flex-1 w-full relative"><canvas id="cost-chart"></canvas></div>
+                </div>
+                <div class="glass-panel p-6 rounded-xl flex flex-col h-64">
+                    <span class="mono-tech text-xs text-zinc-500 uppercase mb-4 tracking-widest">Accuracy Convergence</span>
+                    <div class="flex-1 w-full relative"><canvas id="accuracy-chart"></canvas></div>
+                </div>
+            </div>
+
+            <!-- Diagnostic Logs & Controls -->
+            <div class="md:col-span-9 glass-panel rounded-xl overflow-hidden flex flex-col h-48">
+                <div class="bg-white/5 px-6 py-3 border-b border-white/5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="w-2.5 h-2.5 bg-red-600 rounded-full animate-ping"></span>
+                        <span class="mono-tech text-xs text-zinc-300 font-bold uppercase tracking-widest">Live Diagnostics</span>
+                    </div>
+                    <span class="mono-tech text-[10px] text-zinc-500 animate-pulse">STREAMING...</span>
+                </div>
+                <div class="p-6 mono-tech text-xs text-zinc-400 space-y-2 overflow-y-auto custom-scrollbar" id="live-diagnostics"></div>
+            </div>
+            
+            <div class="md:col-span-3 flex flex-col gap-4 h-48">
+                <button id="btn-pause" class="flex-1 bg-red-600 hover:bg-red-500 rounded-xl flex items-center justify-center gap-2 text-white font-bold tracking-widest uppercase text-xs transition-colors">
+                    <span class="material-symbols-outlined text-2xl" data-icon="pause_circle" data-weight="fill" id="btn-pause-icon">pause_circle</span>
+                    <span id="btn-pause-text">Pause Engine</span>
+                </button>
+                <button id="btn-reset" class="flex-1 glass-panel hover:bg-white/10 rounded-xl flex items-center justify-center gap-2 text-zinc-300 font-bold tracking-widest uppercase text-xs transition-colors">
+                    <span class="material-symbols-outlined text-2xl" data-icon="restart_alt">restart_alt</span>
+                    Reset State
+                </button>
+            </div>
+
+        </div>
+    </div>
+</main>
+<!-- BottomNavBar Component -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-4 bg-[#121212]/60 backdrop-blur-2xl border-t border-white/5 shadow-[0_-4px_24px_rgba(0,0,0,0.5)] rounded-t-2xl lg:hidden">
+<a class="flex flex-col items-center justify-center text-zinc-500 opacity-60 hover:text-red-400 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-semibold tracking-tighter">Discover</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500 opacity-60 hover:text-red-400 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-semibold tracking-tighter">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-yellow-400 font-bold hover:text-red-400 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="analytics" data-weight="fill" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] font-semibold tracking-tighter">Engine</span>
+</a>
+</nav>
+<!-- Decorative Content -->
+<div class="fixed inset-0 -z-10 pointer-events-none opacity-20">
+<div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-red-900/20 blur-[120px] rounded-full"></div>
+</div>
+<script type="module">
+    import Chart from 'chart.js/auto';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let isRunning = true;
+        let iteration = 0;
+        
+        // --- 1. Real-time Charts ---
+        Chart.defaults.color = '#a1a1aa'; 
+        Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+        Chart.defaults.font.family = "'JetBrains Mono', monospace";
+        Chart.defaults.font.size = 9;
+
+        const maxDataPoints = 50;
+        const initialLabels = Array.from({length: maxDataPoints}, (_, i) => i);
+        const initialCostData = Array.from({length: maxDataPoints}, (_, i) => Math.max(0.2, 1.8 - (i * 0.05) + Math.random() * 0.2));
+        const initialAccData = Array.from({length: maxDataPoints}, (_, i) => Math.min(0.98, 0.3 + (i * 0.02) + Math.random() * 0.05));
+
+        const costCtx = document.getElementById('cost-chart').getContext('2d');
+        const costChart = new Chart(costCtx, {
+            type: 'line',
+            data: {
+                labels: [...initialLabels],
+                datasets: [{
+                    data: [...initialCostData],
+                    borderColor: '#3b82f6',
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { min: 0, max: 2 },
+                    x: { ticks: { maxTicksLimit: 5 } }
+                },
+                animation: false
+            }
+        });
+
+        const accCtx = document.getElementById('accuracy-chart').getContext('2d');
+        const accChart = new Chart(accCtx, {
+            type: 'line',
+            data: {
+                labels: [...initialLabels],
+                datasets: [{
+                    data: [...initialAccData],
+                    borderColor: '#3b82f6',
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { min: 0, max: 1 },
+                    x: { ticks: { maxTicksLimit: 5 } }
+                },
+                animation: false
+            }
+        });
+
+        // --- 2. Modular Network Visualization ---
+        const edgesGroup = document.getElementById('edges-group');
+        const nodesGroup = document.getElementById('nodes-group');
+        const networkSvg = document.getElementById('network-svg');
+
+        // Full pool of possible input features
+        const ALL_INPUTS = [
+            { key: 'action_pref',  label: 'Action Pref',   genre: 'action',   active: true },
+            { key: 'scifi_pref',   label: 'Sci-Fi Pref',   genre: 'scifi',    active: true },
+            { key: 'drama_pref',   label: 'Drama Pref',    genre: 'drama',    active: true },
+            { key: 'comedy_pref',  label: 'Comedy Pref',   genre: 'comedy',   active: true },
+            { key: 'horror_pref',  label: 'Horror Pref',   genre: 'horror',   active: true },
+            { key: 'thriller_pref',label: 'Thriller Pref', genre: 'thriller', active: true },
+            { key: 'romance_pref', label: 'Romance Pref',  genre: 'romance',  active: false },
+            { key: 'fantasy_pref', label: 'Fantasy Pref',  genre: 'fantasy',  active: false },
+            { key: 'animation',    label: 'Animation',     genre: null,       active: false },
+            { key: 'documentary',  label: 'Documentary',   genre: null,       active: false },
+            { key: 'adventure',    label: 'Adventure',     genre: null,       active: false },
+            { key: 'mystery',      label: 'Mystery',       genre: null,       active: false },
+            { key: 'musical',      label: 'Musical',       genre: null,       active: false },
+            { key: 'user_age',     label: 'User Age',      genre: null,       active: true },
+            { key: 'watch_hist',   label: 'Watch Hist',    genre: null,       active: true },
+            { key: 'avg_rating',   label: 'Avg Rating',    genre: null,       active: true },
+            { key: 'release_yr',   label: 'Release Yr',    genre: null,       active: false },
+            { key: 'director',     label: 'Director',      genre: null,       active: false },
+            { key: 'cast_match',   label: 'Cast Match',    genre: null,       active: false },
+            { key: 'runtime',      label: 'Runtime',       genre: null,       active: false },
+            { key: 'pop_score',    label: 'Pop Score',     genre: null,       active: true },
+            { key: 'search_qry',   label: 'Search Query',  genre: null,       active: false },
+        ];
+
+        // Build toggle chips UI
+        const toggleContainer = document.getElementById('input-toggle-container');
+        const depthLabel = document.getElementById('depth-label');
+
+        function buildToggleChips() {
+            toggleContainer.innerHTML = '';
+            ALL_INPUTS.forEach(inp => {
+                const chip = document.createElement('button');
+                chip.dataset.key = inp.key;
+                chip.className = `input-chip mono-tech text-[9px] px-2 py-1 rounded border transition-all ${
+                    inp.active
+                        ? 'bg-red-600/20 border-red-600/60 text-red-400 hover:bg-red-600/30'
+                        : 'bg-white/5 border-white/10 text-zinc-500 hover:border-white/20 hover:text-zinc-300'
+                }`;
+                chip.textContent = inp.label;
+                chip.addEventListener('click', () => {
+                    const activeCount = ALL_INPUTS.filter(i => i.active).length;
+                    if (inp.active && activeCount <= 1) return; // keep at least 1
+                    inp.active = !inp.active;
+                    // Re-style this chip
+                    if (inp.active) {
+                        chip.className = 'input-chip mono-tech text-[9px] px-2 py-1 rounded border transition-all bg-red-600/20 border-red-600/60 text-red-400 hover:bg-red-600/30';
+                    } else {
+                        chip.className = 'input-chip mono-tech text-[9px] px-2 py-1 rounded border transition-all bg-white/5 border-white/10 text-zinc-500 hover:border-white/20 hover:text-zinc-300';
+                    }
+                    renderNetwork(currentDepth);
+                });
+                toggleContainer.appendChild(chip);
+            });
+        }
+        buildToggleChips();
+
+        document.getElementById('btn-select-all').addEventListener('click', () => {
+            ALL_INPUTS.forEach(i => { i.active = true; });
+            buildToggleChips();
+            renderNetwork(currentDepth);
+        });
+        document.getElementById('btn-clear-all').addEventListener('click', () => {
+            // Keep at least the first one active
+            ALL_INPUTS.forEach((i, idx) => { i.active = idx === 0; });
+            buildToggleChips();
+            renderNetwork(currentDepth);
+        });
+
+        // Hidden layers definitions — indigo → violet → purple → rose
+        const hiddenLayers = [
+            { count: 12, colors: ['#6366f1', '#818cf8'] },
+            { count: 12, colors: ['#8b5cf6', '#a78bfa'] },
+            { count: 10, colors: ['#a855f7', '#c084fc'] },
+            { count: 8,  colors: ['#ec4899', '#f472b6'] },
+        ];
+        const outputLayer = { count: 4, labels: ['Rec: The Dark Knight', 'Rec: Inception', 'Rec: Interstellar', 'Rec: The Matrix'], colors: ['#f43f5e'] };
+
+        // Mutable state for current render
+        let currentNodes = [];
+        let currentEdges = [];
+        let hoverLabelsGroup = null;
+        let currentDepth = 5;
+
+        let _renderPending = false;
+        function renderNetwork(depth, instant = false) {
+            currentDepth = depth;
+            if (depthLabel) depthLabel.textContent = depth;
+
+            const doRender = () => {
+                edgesGroup.innerHTML = '';
+                nodesGroup.innerHTML = '';
+                if (hoverLabelsGroup) hoverLabelsGroup.remove();
+                _buildNetwork(depth);
+                // Fade back in
+                edgesGroup.style.opacity = '0';
+                nodesGroup.style.opacity = '0';
+                requestAnimationFrame(() => {
+                    edgesGroup.style.transition = 'opacity 0.35s ease';
+                    nodesGroup.style.transition = 'opacity 0.35s ease';
+                    edgesGroup.style.opacity = '1';
+                    nodesGroup.style.opacity = '1';
+                });
+            };
+
+            if (instant) { doRender(); return; }
+
+            // Fade out first, then redraw
+            edgesGroup.style.transition = 'opacity 0.2s ease';
+            nodesGroup.style.transition = 'opacity 0.2s ease';
+            edgesGroup.style.opacity = '0';
+            nodesGroup.style.opacity = '0';
+            setTimeout(doRender, 220);
+        }
+
+        function _buildNetwork(depth) {
+            // (content below unchanged — just moved into this helper)
+
+            // Build dynamic input layer from active inputs
+            const activeInputs = ALL_INPUTS.filter(i => i.active);
+            const inputLayer = {
+                count: activeInputs.length,
+                labels: activeInputs.map(i => i.label),
+                colors: ['#06b6d4', '#0891b2']  // cyan
+            };
+
+            // Build layersDef based on depth (depth=1 means 0 hidden, depth=5 means 4 hidden)
+            const numHidden = depth - 1;
+            const layersDef = [inputLayer, ...hiddenLayers.slice(0, numHidden), outputLayer];
+
+            currentNodes = [];
+            currentEdges = [];
+
+            const svgWidth = 1000;
+            const svgHeight = 600;
+            const padding = depth <= 2 ? 200 : 120;
+            const layerGap = (svgWidth - padding * 2) / (layersDef.length - 1);
+            const startX = padding;
+
+            // Generate Nodes
+            layersDef.forEach((layer, lIdx) => {
+                const x = startX + lIdx * layerGap;
+                const nodeGap = (svgHeight - 100) / layer.count;
+                const startY = 50 + ((svgHeight - 100) - ((layer.count - 1) * nodeGap)) / 2;
+
+                for (let i = 0; i < layer.count; i++) {
+                    const y = startY + i * nodeGap;
+                    const node = { id: `l${lIdx}_n${i}`, x, y, layer: lIdx, index: i, totalLayers: layersDef.length, ...layer };
+                    currentNodes.push(node);
+                    if (lIdx > 0) {
+                        const prevNodes = currentNodes.filter(n => n.layer === lIdx - 1);
+                        prevNodes.forEach(pn => {
+                            currentEdges.push({ source: pn, target: node, weight: (Math.random() * 2 - 1).toFixed(4) });
+                        });
+                    }
+                }
+            });
+
+            // Render Edges
+            currentEdges.forEach(edge => {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', edge.source.x);
+                line.setAttribute('y1', edge.source.y);
+                line.setAttribute('x2', edge.target.x);
+                line.setAttribute('y2', edge.target.y);
+                // Color edge by source layer index for gradient feel
+                const layerFrac = edge.source.layer / Math.max(1, (edgesGroup.parentElement ? 5 : 5));
+                line.setAttribute('stroke', `rgba(139,92,246,0.12)`);
+                line.setAttribute('stroke-width', '0.8');
+                line.classList.add('transition-all', 'duration-300');
+                line.dataset.source = edge.source.id;
+                line.dataset.target = edge.target.id;
+                line.dataset.weight = edge.weight;
+                edgesGroup.appendChild(line);
+            });
+
+            // Hover labels group (always on top)
+            hoverLabelsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            networkSvg.appendChild(hoverLabelsGroup);
+
+            // Render Nodes & Interactions
+            currentNodes.forEach(node => {
+                const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', node.x);
+                circle.setAttribute('cy', node.y);
+                circle.setAttribute('r', '7');
+                const nodeColor = node.colors[Math.floor(Math.random() * node.colors.length)];
+                circle.setAttribute('fill', nodeColor);
+                circle.setAttribute('stroke', `${nodeColor}60`);
+                circle.setAttribute('stroke-width', '3');
+                circle.setAttribute('filter', 'url(#glow)');
+                circle.classList.add('transition-all', 'duration-300', 'cursor-pointer');
+                circle.dataset.activation = (Math.random() * 2 - 1).toFixed(3);
+                group.appendChild(circle);
+
+                // Input Labels
+                if (node.layer === 0) {
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', node.x - 30);
+                    text.setAttribute('y', node.y + 4);
+                    text.setAttribute('fill', '#fff');
+                    text.setAttribute('font-size', '11');
+                    text.setAttribute('font-family', 'monospace');
+                    text.setAttribute('text-anchor', 'end');
+                    text.textContent = node.labels ? node.labels[node.index] : `X${node.index + 1}`;
+                    group.appendChild(text);
+                    // Arrow
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', `M ${node.x - 26} ${node.y} L ${node.x - 14} ${node.y} L ${node.x - 18} ${node.y - 3} M ${node.x - 14} ${node.y} L ${node.x - 18} ${node.y + 3}`);
+                    path.setAttribute('stroke', '#3b82f6');
+                    path.setAttribute('stroke-width', '1.5');
+                    path.setAttribute('fill', 'none');
+                    group.appendChild(path);
+                }
+
+                // Output Labels
+                if (node.layer === node.totalLayers - 1) {
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', node.x + 20);
+                    text.setAttribute('y', node.y + 4);
+                    text.setAttribute('fill', '#fff');
+                    text.setAttribute('font-size', '12');
+                    text.classList.add('output-label');
+                    text.textContent = node.labels[node.index];
+                    group.appendChild(text);
+                }
+
+                // Hover: magnify + show weights
+                group.addEventListener('mouseenter', () => {
+                    circle.setAttribute('r', '14');
+                    circle.setAttribute('filter', 'url(#glow-strong)');
+                    hoverLabelsGroup.innerHTML = '';
+
+                    const actText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    actText.setAttribute('x', node.x);
+                    actText.setAttribute('y', node.y - 25);
+                    actText.setAttribute('fill', '#fff');
+                    actText.setAttribute('font-size', '14');
+                    actText.setAttribute('font-weight', 'bold');
+                    actText.setAttribute('font-family', 'monospace');
+                    actText.setAttribute('text-anchor', 'middle');
+                    actText.setAttribute('stroke', '#000');
+                    actText.setAttribute('stroke-width', '4');
+                    actText.setAttribute('paint-order', 'stroke fill');
+                    actText.textContent = `α: ${circle.dataset.activation}`;
+                    hoverLabelsGroup.appendChild(actText);
+
+                    Array.from(edgesGroup.querySelectorAll('line')).forEach(line => {
+                        line.setAttribute('stroke', 'rgba(139,92,246,0.03)');
+                    });
+                    Array.from(edgesGroup.querySelectorAll('line')).forEach(line => {
+                        if (line.dataset.source === node.id || line.dataset.target === node.id) {
+                            line.setAttribute('stroke', '#a5b4fc');
+                            line.setAttribute('stroke-width', '1.5');
+                            const x1 = parseFloat(line.getAttribute('x1')), y1 = parseFloat(line.getAttribute('y1'));
+                            const x2 = parseFloat(line.getAttribute('x2')), y2 = parseFloat(line.getAttribute('y2'));
+                            const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+                            const midX = (x1 + x2) / 2, midY = (y1 + y2) / 2;
+                            const weightText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                            weightText.setAttribute('x', midX);
+                            weightText.setAttribute('y', midY);
+                            weightText.setAttribute('dy', '-5');
+                            weightText.setAttribute('transform', `rotate(${angle}, ${midX}, ${midY})`);
+                            weightText.setAttribute('font-size', '11');
+                            weightText.setAttribute('font-weight', 'bold');
+                            weightText.setAttribute('font-family', 'monospace');
+                            weightText.setAttribute('text-anchor', 'middle');
+                            weightText.setAttribute('stroke', '#121212');
+                            weightText.setAttribute('stroke-width', '4');
+                            weightText.setAttribute('stroke-linejoin', 'round');
+                            weightText.setAttribute('paint-order', 'stroke fill');
+                            const w = parseFloat(line.dataset.weight);
+                            weightText.setAttribute('fill', w > 0 ? '#4ade80' : '#f87171');
+                            weightText.textContent = `w: ${line.dataset.weight}`;
+                            hoverLabelsGroup.appendChild(weightText);
+                        }
+                    });
+                });
+
+                group.addEventListener('mouseleave', () => {
+                    circle.setAttribute('r', '7');
+                    circle.setAttribute('filter', 'url(#glow)');
+                    hoverLabelsGroup.innerHTML = '';
+                    Array.from(edgesGroup.querySelectorAll('line')).forEach(line => {
+                        line.setAttribute('stroke', 'rgba(139,92,246,0.12)');
+                        line.setAttribute('stroke-width', '0.8');
+                    });
+                });
+
+                nodesGroup.appendChild(group);
+            });
+        }
+
+        // Initial render at max depth (instant — no fade on first load)
+        renderNetwork(5, true);
+
+        // --- 3. Animation Loops ---
+        const statConfidence = document.getElementById('stat-confidence');
+        const statAccuracy = document.getElementById('stat-accuracy');
+        const statConfidencePrev = document.getElementById('stat-confidence-prev');
+        const statAccuracyPrev = document.getElementById('stat-accuracy-prev');
+        const batchInfo = document.getElementById('batch-info');
+
+        let currentConfidence = 84.2;
+        let currentAccuracy = 96.8;
+        let batchCount = 25;
+        let exampleCount = 588;
+
+        setInterval(() => {
+            if (!isRunning) return;
+            iteration++;
+
+            // Charts Update
+            if (costChart.data.labels.length > maxDataPoints) {
+                costChart.data.labels.shift();
+                costChart.data.datasets[0].data.shift();
+                accChart.data.labels.shift();
+                accChart.data.datasets[0].data.shift();
+            }
+            const lastCost = costChart.data.datasets[0].data[costChart.data.datasets[0].data.length - 1];
+            const newCost = Math.max(0.1, lastCost - 0.01 + (Math.random() * 0.04 - 0.02));
+            costChart.data.labels.push(iteration);
+            costChart.data.datasets[0].data.push(newCost);
+            const lastAcc = accChart.data.datasets[0].data[accChart.data.datasets[0].data.length - 1];
+            const newAcc = Math.min(0.99, lastAcc + 0.005 + (Math.random() * 0.02 - 0.01));
+            accChart.data.labels.push(iteration);
+            accChart.data.datasets[0].data.push(newAcc);
+            costChart.update();
+            accChart.update();
+
+            // Batch Info (still live)
+            exampleCount += Math.floor(Math.random() * 10);
+            if (exampleCount > 1000) { exampleCount = 0; batchCount++; }
+            batchInfo.textContent = `Batch: ${batchCount} Example: ${exampleCount}`;
+        }, 800);
+
+        // Live Diagnostics
+        const liveDiagnostics = document.getElementById('live-diagnostics');
+        const messages = [
+            "Calculating Cosine Similarity...", "Updating Weights: Layer_3_Dense",
+            "Backprop signal propagating...", "Validation Loss: {val}",
+            "Processing Vector ID: {id}...", "Optimizing hidden layers...",
+            "Gradient descent step completed."
+        ];
+        setInterval(() => {
+            if (!isRunning) return;
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute:'2-digit', second:'2-digit' });
+            let msg = messages[Math.floor(Math.random() * messages.length)];
+            msg = msg.replace('{val}', (Math.random() * 0.05).toFixed(5));
+            msg = msg.replace('{id}', Math.floor(100 + Math.random() * 900));
+            const p = document.createElement('p');
+            if (Math.random() > 0.3) {
+                p.innerHTML = `<span class="text-red-600">[${timeStr}]</span> ${msg}`;
+            } else {
+                p.className = 'opacity-50';
+                p.innerHTML = `<span class="text-zinc-600">[${timeStr}]</span> ${msg}`;
+            }
+            liveDiagnostics.appendChild(p);
+            while (liveDiagnostics.children.length > 5) liveDiagnostics.removeChild(liveDiagnostics.firstChild);
+        }, 1500);
+
+        // Controls
+        const btnPause = document.getElementById('btn-pause');
+        const btnPauseIcon = document.getElementById('btn-pause-icon');
+        const btnPauseText = document.getElementById('btn-pause-text');
+        btnPause.addEventListener('click', () => {
+            isRunning = !isRunning;
+            if (isRunning) {
+                btnPause.classList.add('bg-red-600', 'hover:bg-red-500');
+                btnPause.classList.remove('glass-panel', 'hover:bg-white/10');
+                btnPauseIcon.textContent = 'pause_circle';
+                btnPauseText.textContent = 'Pause';
+            } else {
+                btnPause.classList.remove('bg-red-600', 'hover:bg-red-500');
+                btnPause.classList.add('glass-panel', 'hover:bg-white/10');
+                btnPauseIcon.textContent = 'play_circle';
+                btnPauseText.textContent = 'Resume';
+            }
+        });
+        const btnReset = document.getElementById('btn-reset');
+        btnReset.addEventListener('click', () => {
+            batchCount = 0; exampleCount = 0; iteration = 0;
+            costChart.data.labels = [...initialLabels].map(() => 0);
+            costChart.data.datasets[0].data = [...initialCostData].map(() => 1.5);
+            accChart.data.labels = [...initialLabels].map(() => 0);
+            accChart.data.datasets[0].data = [...initialAccData].map(() => 0.3);
+            costChart.update(); accChart.update();
+            liveDiagnostics.innerHTML = '';
+        });
+
+        const sliderDepth      = document.getElementById('slider-depth');
+        const sliderAction     = document.getElementById('slider-action');
+        const sliderScifi      = document.getElementById('slider-scifi');
+        const sliderDrama      = document.getElementById('slider-drama');
+        const sliderComedy     = document.getElementById('slider-comedy');
+        const sliderHorror     = document.getElementById('slider-horror');
+        const sliderThriller   = document.getElementById('slider-thriller');
+        const sliderRomance    = document.getElementById('slider-romance');
+        const sliderFantasy    = document.getElementById('slider-fantasy');
+        const sliderWestern    = document.getElementById('slider-western');
+        const sliderApocalypse = document.getElementById('slider-apocalypse');
+        const sliderMartial    = document.getElementById('slider-martialarts');
+        const sliderSports     = document.getElementById('slider-sports');
+        // sub-genres
+        const allGenreSliders = [
+            sliderAction, sliderScifi, sliderDrama, sliderComedy, sliderHorror,
+            sliderThriller, sliderRomance, sliderFantasy, sliderWestern, sliderApocalypse,
+            sliderMartial, sliderSports,
+            ...['superhero','heist','war','spy','disaster',
+                'cyberpunk','dystopian','spaceopera','timetravel','alien','althistory',
+                'slasher','supernatural','gothic','foundfootage','zombie',
+                'highfantasy','darkfantasy','steampunk','swordsorcery',
+                'crimethrill','mystery','legalthrill',
+                'romcom','histromance','paranromance',
+                'slapstick','satire','darkcomedy',
+                'histdrama','crimedrama','teendrama',
+                'spaghetti','samurai',
+                'zombieapoc','pandemic','nuclear',
+                'kungfu','wuxia',
+                'sportsbiopic','underdog'
+            ].map(id => document.getElementById('slider-' + id))
+        ];
+
+        let isAnimating = false;
+
+        function calculateRecommendations(a, s, d, c, h, t, r, f) {
+            // Horror combos
+            if (h > 70 && t > 60) return ['Silence of the Lambs', 'Se7en', 'Zodiac', 'Midsommar'];
+            if (h > 70 && a > 60) return ['Get Out', 'A Quiet Place', 'It (2017)', 'Hereditary'];
+            if (h > 70)           return ['The Shining', 'Hereditary', 'Midsommar', 'Us'];
+            // Thriller
+            if (t > 70 && d > 60) return ['Parasite', 'Gone Girl', 'Prisoners', 'No Country for Old Men'];
+            if (t > 70)           return ['Knives Out', 'Gone Girl', 'Memento', 'Oldboy'];
+            // Romance + other
+            if (r > 70 && d > 60) return ['La La Land', 'Before Sunrise', 'Her', 'Eternal Sunshine'];
+            if (r > 70 && f > 60) return ['The Princess Bride', 'Stardust', 'Enchanted', 'Cinderella'];
+            if (r > 70)           return ['Titanic', 'Notting Hill', 'Pride & Prejudice', 'The Notebook'];
+            // Fantasy
+            if (f > 70 && a > 60) return ['Lord of the Rings', 'Avengers: Endgame', 'Wonder Woman', 'Black Panther'];
+            if (f > 70)           return ['Harry Potter', 'Pan\'s Labyrinth', 'Spirited Away', 'Princess Mononoke'];
+            // Comedy combos
+            if (c > 70 && a > 60) return ['Hot Fuzz', 'Rush Hour', 'Superbad', 'The Nice Guys'];
+            if (c > 70)           return ['The Grand Budapest Hotel', 'Knives Out', 'Clueless', 'Superbad'];
+            // Sci-Fi + Action
+            if (a > 70 && s > 70) return ['The Matrix', 'Inception', 'Terminator 2', 'Edge of Tomorrow'];
+            if (a > 70 && d > 70) return ['Gladiator', 'The Dark Knight', 'Braveheart', 'Logan'];
+            if (s > 70 && d > 70) return ['Interstellar', 'Arrival', 'Blade Runner 2049', 'The Martian'];
+            if (a > 60)           return ['Die Hard', 'Mad Max: Fury Road', 'John Wick', 'The Avengers'];
+            if (s > 60)           return ['Star Wars', 'Dune', 'Alien', '2001: A Space Odyssey'];
+            if (d > 60)           return ['The Godfather', "Schindler's List", 'Shawshank Redemption', 'Forrest Gump'];
+            return ['The Truman Show', 'Pulp Fiction', 'Fight Club', 'Goodfellas'];
+        }
+
+        function triggerForwardPass(a, s, d, c, h, t, r, f) {
+            if (isAnimating) return;
+            isAnimating = true;
+            const recs = calculateRecommendations(a, s, d, c, h, t, r, f);
+
+            let layerIndex = 0;
+            // Count total layers in the CURRENT rendered network
+            const totalLayers = currentDepth + 1; // input + hidden + output
+
+            const animateLayer = () => {
+                if (layerIndex >= totalLayers - 1) {
+                    isAnimating = false;
+
+                    // Update output labels
+                    document.querySelectorAll('.output-label').forEach((lbl, i) => {
+                        if (recs[i]) {
+                            lbl.textContent = `Rec: ${recs[i]}`;
+                            lbl.setAttribute('fill', '#4ade80');
+                            setTimeout(() => lbl.setAttribute('fill', '#fff'), 700);
+                        }
+                    });
+
+                    // Flash final nodes
+                    const lastLayerIdx = totalLayers - 1;
+                    const finalNodeEls = Array.from(nodesGroup.querySelectorAll('g'));
+                    currentNodes.filter(n => n.layer === lastLayerIdx).forEach(node => {
+                        const circle = nodesGroup.querySelector(`circle[cx="${node.x}"][cy="${node.y}"]`);
+                        if (circle) {
+                            circle.setAttribute('r', '14');
+                            circle.setAttribute('fill', '#4ade80');
+                            setTimeout(() => {
+                                circle.setAttribute('r', '8');
+                                circle.setAttribute('fill', '#dc2626');
+                            }, 700);
+                        }
+                    });
+
+                    // Update stats only now (after pass completes)
+                    const prevConf = currentConfidence;
+                    const prevAcc = currentAccuracy;
+                    // Simulate slight variation based on inputs
+                    const allVals = [a, s, d, c, h, t, r, f];
+                    const complexity = allVals.reduce((sum, v) => sum + v, 0) / allVals.length;
+
+                    currentConfidence = Math.min(99, Math.max(60, 70 + complexity * 0.2 + (Math.random() * 6 - 3))).toFixed(1);
+                    currentAccuracy   = Math.min(99.9, Math.max(88, 92 + currentDepth * 0.8 + (Math.random() * 3 - 1.5))).toFixed(1);
+
+                    statConfidence.innerHTML = `${currentConfidence}<span class="text-on-surface text-sm ml-1">%</span>`;
+                    statAccuracy.innerHTML   = `${currentAccuracy}<span class="text-zinc-500 text-sm ml-1">%</span>`;
+                    statConfidencePrev.textContent = `(was ${prevConf}%)`;
+                    statAccuracyPrev.textContent   = `(was ${prevAcc}%)`;
+                    statConfidencePrev.classList.remove('hidden');
+                    statAccuracyPrev.classList.remove('hidden');
+
+                    return;
+                }
+
+                const sourceNodeIds = currentNodes.filter(n => n.layer === layerIndex).map(n => n.id);
+                const layerLines = Array.from(edgesGroup.querySelectorAll('line')).filter(l => sourceNodeIds.includes(l.dataset.source));
+                layerLines.forEach(l => { l.setAttribute('stroke', '#22d3ee'); l.setAttribute('stroke-width', '1.8'); });
+                setTimeout(() => {
+                    layerLines.forEach(l => { l.setAttribute('stroke', 'rgba(139,92,246,0.12)'); l.setAttribute('stroke-width', '0.8'); });
+                    layerIndex++;
+                    animateLayer();
+                }, Math.max(60, 120 - currentDepth * 10)); // faster for shallower nets
+            };
+            animateLayer();
+        }
+
+        function updateVectorDisplay() {
+            const a = parseInt(sliderAction?.value    || 50);
+            const s = parseInt(sliderScifi?.value     || 50);
+            const d = parseInt(sliderDrama?.value     || 50);
+            const c = parseInt(sliderComedy?.value    || 50);
+            const h = parseInt(sliderHorror?.value    || 50);
+            const t = parseInt(sliderThriller?.value  || 50);
+            const r = parseInt(sliderRomance?.value   || 50);
+            const f = parseInt(sliderFantasy?.value   || 50);
+            // Last 4 are system features (static proxies)
+            const vals = [a, s, d, c, h, t, r, f, 65, 80, 72, 91];
+            
+            const vecCells = document.querySelectorAll('#vectorization-grid .vec-cell');
+            vecCells.forEach((cell, i) => {
+                const raw = vals[i] !== undefined ? vals[i] : 50;
+                const norm = (raw / 100).toFixed(2);
+                cell.textContent = `[${norm}]`;
+                // Heatmap coloring: low=slate, mid=yellow, high=green
+                let color, border;
+                if (raw < 30) {
+                    color = 'text-slate-500'; border = 'border-slate-700/30';
+                } else if (raw < 55) {
+                    color = 'text-yellow-600'; border = 'border-yellow-700/20';
+                } else if (raw < 75) {
+                    color = 'text-yellow-400'; border = 'border-yellow-500/30';
+                } else {
+                    color = 'text-emerald-400'; border = 'border-emerald-500/30';
+                }
+                cell.className = `vec-cell bg-white/5 p-2 rounded border transition-all duration-300 font-bold text-[11px] scale-105 ${color} ${border}`;
+                setTimeout(() => {
+                    cell.className = `vec-cell bg-white/5 p-2 rounded border transition-all duration-300 font-bold text-[11px] ${color} ${border}`;
+                }, 400);
+            });
+        }
+
+        function handleGenreSliderChange() {
+            const a = parseInt(sliderAction?.value   || 50);
+            const s = parseInt(sliderScifi?.value    || 50);
+            const d = parseInt(sliderDrama?.value    || 50);
+            const c = parseInt(sliderComedy?.value   || 50);
+            const h = parseInt(sliderHorror?.value   || 50);
+            const t = parseInt(sliderThriller?.value || 50);
+            const r = parseInt(sliderRomance?.value  || 50);
+            const f = parseInt(sliderFantasy?.value  || 50);
+            updateVectorDisplay();
+            triggerForwardPass(a, s, d, c, h, t, r, f);
+        }
+
+        // Depth slider: re-render the whole network
+        if (sliderDepth) sliderDepth.addEventListener('input', () => {
+            renderNetwork(parseInt(sliderDepth.value));
+        });
+
+        allGenreSliders.forEach(sl => {
+            if (sl) sl.addEventListener('change', handleGenreSliderChange);
+        });
+
+    });
+</script>
+</body></html>

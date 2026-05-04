@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+      background-color: #121212;
+      color: #e4e2e1;
+      min-height: max(884px, 100dvh);
+  }
+}
+
+@layer utilities {
+  .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .hero-gradient {
+      background: linear-gradient(0deg, #121212 0%, rgba(18, 18, 18, 0.7) 50%, transparent 100%);
+  }
+}

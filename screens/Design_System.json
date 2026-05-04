@@ -1,0 +1,118 @@
+{
+    "name":  "assets/8357e6e9e1bc490180f01c697ce7a209",
+    "designSystem":  {
+                         "displayName":  "Cinematic Noir",
+                         "styleGuidelines":  "## Brand \u0026 Style\nThe design system is built to mirror the prestige and immersion of a modern cinema. It targets film enthusiasts who value curation and high-fidelity visuals. By utilizing a **Minimalist** foundation enriched with **Glassmorphism**, the interface recedes into the background, allowing movie artistry to take center stage. The emotional response is one of \"premiere night\" exclusivity—sleek, focused, and expensive. Every interaction is designed to feel like a camera movement: smooth, intentional, and atmospheric.\n\n## Layout \u0026 Spacing\nThis design system employs a **fluid grid** model tailored for mobile consumption. A 4-column grid is the standard, with generous 24px outer margins to give the content \"breathing room\" and prevent the UI from feeling cluttered. \n\nSpacing follows a strict 4px/8px modular scale. Vertical rhythms are elongated to emphasize a sense of luxury and to ensure that movie posters (the primary focal point) are never crowded by supporting text or UI elements.\n\n## Elevation \u0026 Depth\nDepth in this design system is achieved through **Tonal Layering** and **Glassmorphism** rather than traditional drop shadows. \n\n1. **The Canvas:** The base layer is the #121212 Deep Charcoal.\n2. **The Surface:** Cards and containers use a slightly lighter grey (#1E1E1E) with a subtle 1px border (#2A2A2A) to define edges.\n3. **The Overlay:** Navigation bars and modal headers use backdrop-blur (20px) with a 60% opacity fill of the primary color, allowing movie posters to scroll beneath them beautifully.\n4. **The Glow:** Active states may use a soft \"Action Red\" outer glow (blur: 15px, opacity: 20%) to simulate the projection of light in a dark theater.\n\n## Components\n- **Movie Posters:** The \"Hero\" component. Always 12px rounded corners. Use a subtle bottom-to-top black gradient overlay to ensure white title text is legible if overlaid.\n- **Action Buttons:** Use \"Action Red\" for primary buttons with white bold text. No shadows; use a high-contrast hover/press state that shifts to a slightly brighter red.\n- **Rating Chips:** Use \"Popcorn Gold\" for icons (stars) and text, set against a semi-transparent dark background for high legibility.\n- **Glass Navigation:** A bottom tab bar with a heavy backdrop blur and 0.5px top border. Icons should be thin-stroke when inactive and solid-filled with \"Popcorn Gold\" when active.\n- **Glass Cards:** Secondary info cards should use 10% white opacity with a 20px blur to create a \"frosted\" effect over the deep charcoal background.\n- **Genre Tags:** Small, pill-shaped outlines with 1px Action Red or Grey borders.",
+                         "theme":  {
+                                       "colorMode":  "DARK",
+                                       "font":  "BE_VIETNAM_PRO",
+                                       "roundness":  "ROUND_EIGHT",
+                                       "customColor":  "#121212",
+                                       "headlineFont":  "BE_VIETNAM_PRO",
+                                       "bodyFont":  "INTER",
+                                       "labelFont":  "INTER",
+                                       "namedColors":  {
+                                                           "background":  "#131313",
+                                                           "error":  "#ffb4ab",
+                                                           "error_container":  "#93000a",
+                                                           "inverse_on_surface":  "#303030",
+                                                           "inverse_primary":  "#5f5e5e",
+                                                           "inverse_surface":  "#e4e2e1",
+                                                           "on_background":  "#e4e2e1",
+                                                           "on_error":  "#690005",
+                                                           "on_error_container":  "#ffdad6",
+                                                           "on_primary":  "#313030",
+                                                           "on_primary_container":  "#7e7d7d",
+                                                           "on_primary_fixed":  "#1c1b1b",
+                                                           "on_primary_fixed_variant":  "#474646",
+                                                           "on_secondary":  "#3f2e00",
+                                                           "on_secondary_container":  "#6a4e00",
+                                                           "on_secondary_fixed":  "#261a00",
+                                                           "on_secondary_fixed_variant":  "#5b4300",
+                                                           "on_surface":  "#e4e2e1",
+                                                           "on_surface_variant":  "#c4c7c7",
+                                                           "on_tertiary":  "#690003",
+                                                           "on_tertiary_container":  "#f61f1f",
+                                                           "on_tertiary_fixed":  "#410001",
+                                                           "on_tertiary_fixed_variant":  "#930007",
+                                                           "outline":  "#8e9192",
+                                                           "outline_variant":  "#444748",
+                                                           "primary":  "#c8c6c5",
+                                                           "primary_container":  "#121212",
+                                                           "primary_fixed":  "#e5e2e1",
+                                                           "primary_fixed_dim":  "#c8c6c5",
+                                                           "secondary":  "#ffdf9e",
+                                                           "secondary_container":  "#fabd00",
+                                                           "secondary_fixed":  "#ffdf9e",
+                                                           "secondary_fixed_dim":  "#fabd00",
+                                                           "surface":  "#131313",
+                                                           "surface_bright":  "#393939",
+                                                           "surface_container":  "#1f2020",
+                                                           "surface_container_high":  "#2a2a2a",
+                                                           "surface_container_highest":  "#353535",
+                                                           "surface_container_low":  "#1b1c1c",
+                                                           "surface_container_lowest":  "#0e0e0e",
+                                                           "surface_dim":  "#131313",
+                                                           "surface_tint":  "#c8c6c5",
+                                                           "surface_variant":  "#353535",
+                                                           "tertiary":  "#ffb4aa",
+                                                           "tertiary_container":  "#2f0001",
+                                                           "tertiary_fixed":  "#ffdad5",
+                                                           "tertiary_fixed_dim":  "#ffb4aa"
+                                                       },
+                                       "designMd":  "---\nname: Cinematic Noir\ncolors:\n  surface: \u0027#131313\u0027\n  surface-dim: \u0027#131313\u0027\n  surface-bright: \u0027#393939\u0027\n  surface-container-lowest: \u0027#0e0e0e\u0027\n  surface-container-low: \u0027#1b1c1c\u0027\n  surface-container: \u0027#1f2020\u0027\n  surface-container-high: \u0027#2a2a2a\u0027\n  surface-container-highest: \u0027#353535\u0027\n  on-surface: \u0027#e4e2e1\u0027\n  on-surface-variant: \u0027#c4c7c7\u0027\n  inverse-surface: \u0027#e4e2e1\u0027\n  inverse-on-surface: \u0027#303030\u0027\n  outline: \u0027#8e9192\u0027\n  outline-variant: \u0027#444748\u0027\n  surface-tint: \u0027#c8c6c5\u0027\n  primary: \u0027#c8c6c5\u0027\n  on-primary: \u0027#313030\u0027\n  primary-container: \u0027#121212\u0027\n  on-primary-container: \u0027#7e7d7d\u0027\n  inverse-primary: \u0027#5f5e5e\u0027\n  secondary: \u0027#ffdf9e\u0027\n  on-secondary: \u0027#3f2e00\u0027\n  secondary-container: \u0027#fabd00\u0027\n  on-secondary-container: \u0027#6a4e00\u0027\n  tertiary: \u0027#ffb4aa\u0027\n  on-tertiary: \u0027#690003\u0027\n  tertiary-container: \u0027#2f0001\u0027\n  on-tertiary-container: \u0027#f61f1f\u0027\n  error: \u0027#ffb4ab\u0027\n  on-error: \u0027#690005\u0027\n  error-container: \u0027#93000a\u0027\n  on-error-container: \u0027#ffdad6\u0027\n  primary-fixed: \u0027#e5e2e1\u0027\n  primary-fixed-dim: \u0027#c8c6c5\u0027\n  on-primary-fixed: \u0027#1c1b1b\u0027\n  on-primary-fixed-variant: \u0027#474646\u0027\n  secondary-fixed: \u0027#ffdf9e\u0027\n  secondary-fixed-dim: \u0027#fabd00\u0027\n  on-secondary-fixed: \u0027#261a00\u0027\n  on-secondary-fixed-variant: \u0027#5b4300\u0027\n  tertiary-fixed: \u0027#ffdad5\u0027\n  tertiary-fixed-dim: \u0027#ffb4aa\u0027\n  on-tertiary-fixed: \u0027#410001\u0027\n  on-tertiary-fixed-variant: \u0027#930007\u0027\n  background: \u0027#131313\u0027\n  on-background: \u0027#e4e2e1\u0027\n  surface-variant: \u0027#353535\u0027\ntypography:\n  display-lg:\n    fontFamily: beVietnamPro\n    fontSize: 40px\n    fontWeight: \u0027800\u0027\n    lineHeight: 48px\n    letterSpacing: -0.02em\n  headline-md:\n    fontFamily: beVietnamPro\n    fontSize: 24px\n    fontWeight: \u0027700\u0027\n    lineHeight: 32px\n  title-sm:\n    fontFamily: inter\n    fontSize: 18px\n    fontWeight: \u0027600\u0027\n    lineHeight: 24px\n  body-md:\n    fontFamily: inter\n    fontSize: 16px\n    fontWeight: \u0027400\u0027\n    lineHeight: 24px\n  label-caps:\n    fontFamily: inter\n    fontSize: 12px\n    fontWeight: \u0027700\u0027\n    lineHeight: 16px\n    letterSpacing: 0.1em\nrounded:\n  sm: 0.25rem\n  DEFAULT: 0.5rem\n  md: 0.75rem\n  lg: 1rem\n  xl: 1.5rem\n  full: 9999px\nspacing:\n  unit: 4px\n  margin-page: 24px\n  gutter-card: 16px\n  stack-sm: 8px\n  stack-md: 16px\n  stack-lg: 32px\n---\n\n## Brand \u0026 Style\nThe design system is built to mirror the prestige and immersion of a modern cinema. It targets film enthusiasts who value curation and high-fidelity visuals. By utilizing a **Minimalist** foundation enriched with **Glassmorphism**, the interface recedes into the background, allowing movie artistry to take center stage. The emotional response is one of \"premiere night\" exclusivity—sleek, focused, and expensive. Every interaction is designed to feel like a camera movement: smooth, intentional, and atmospheric.\n\n## Colors\nThe palette is rooted in the \"Deep Charcoal\" primary, providing a void-like canvas that eliminates light bleed. \"Action Red\" is reserved strictly for primary calls to action and critical interactive states, mimicking the classic cinema carpet. \"Popcorn Gold\" serves as the highlight color for ratings, awards, and premium features, adding a sense of prestige. \n\nSurfaces are constructed using a series of charcoal shades to create depth without breaking the dark-mode immersion. Text uses high-contrast whites for legibility and muted greys for secondary metadata to maintain visual hierarchy.\n\n## Typography\nThe typography strategy prioritizes high-end editorial clarity. Headlines use **beVietnamPro** in heavy weights to command attention, resembling film titles. **Inter** is utilized for all functional text and UI labels to ensure maximum readability against dark backgrounds. \n\nLetter spacing is tightened for large headings to feel \"blockbuster\" bold, while labels use increased tracking and uppercase styling to provide a technical, metadata-heavy feel common in film databases.\n\n## Layout \u0026 Spacing\nThis design system employs a **fluid grid** model tailored for mobile consumption. A 4-column grid is the standard, with generous 24px outer margins to give the content \"breathing room\" and prevent the UI from feeling cluttered. \n\nSpacing follows a strict 4px/8px modular scale. Vertical rhythms are elongated to emphasize a sense of luxury and to ensure that movie posters (the primary focal point) are never crowded by supporting text or UI elements.\n\n## Elevation \u0026 Depth\nDepth in this design system is achieved through **Tonal Layering** and **Glassmorphism** rather than traditional drop shadows. \n\n1. **The Canvas:** The base layer is the #121212 Deep Charcoal.\n2. **The Surface:** Cards and containers use a slightly lighter grey (#1E1E1E) with a subtle 1px border (#2A2A2A) to define edges.\n3. **The Overlay:** Navigation bars and modal headers use backdrop-blur (20px) with a 60% opacity fill of the primary color, allowing movie posters to scroll beneath them beautifully.\n4. **The Glow:** Active states may use a soft \"Action Red\" outer glow (blur: 15px, opacity: 20%) to simulate the projection of light in a dark theater.\n\n## Shapes\nThe shape language is sophisticated and consistent. A global radius of **12px** (0.75rem) is applied to all primary cards and movie posters to soften the \"tech\" feel and make the interface more approachable. \n\nSmall interactive elements like buttons and input fields utilize the same 12px radius, while tags and chips use a full-pill radius to distinguish them from structural layout elements.\n\n## Components\n- **Movie Posters:** The \"Hero\" component. Always 12px rounded corners. Use a subtle bottom-to-top black gradient overlay to ensure white title text is legible if overlaid.\n- **Action Buttons:** Use \"Action Red\" for primary buttons with white bold text. No shadows; use a high-contrast hover/press state that shifts to a slightly brighter red.\n- **Rating Chips:** Use \"Popcorn Gold\" for icons (stars) and text, set against a semi-transparent dark background for high legibility.\n- **Glass Navigation:** A bottom tab bar with a heavy backdrop blur and 0.5px top border. Icons should be thin-stroke when inactive and solid-filled with \"Popcorn Gold\" when active.\n- **Glass Cards:** Secondary info cards should use 10% white opacity with a 20px blur to create a \"frosted\" effect over the deep charcoal background.\n- **Genre Tags:** Small, pill-shaped outlines with 1px Action Red or Grey borders.",
+                                       "colorVariant":  "FIDELITY",
+                                       "overridePrimaryColor":  "#121212",
+                                       "overrideSecondaryColor":  "#FFC107",
+                                       "overrideTertiaryColor":  "#E50914",
+                                       "overrideNeutralColor":  "#242424",
+                                       "spacingScale":  2,
+                                       "typography":  {
+                                                          "body-md":  {
+                                                                          "fontFamily":  "inter",
+                                                                          "fontSize":  "16px",
+                                                                          "fontWeight":  "400",
+                                                                          "lineHeight":  "24px"
+                                                                      },
+                                                          "display-lg":  {
+                                                                             "fontFamily":  "beVietnamPro",
+                                                                             "fontSize":  "40px",
+                                                                             "fontWeight":  "800",
+                                                                             "lineHeight":  "48px",
+                                                                             "letterSpacing":  "-0.02em"
+                                                                         },
+                                                          "headline-md":  {
+                                                                              "fontFamily":  "beVietnamPro",
+                                                                              "fontSize":  "24px",
+                                                                              "fontWeight":  "700",
+                                                                              "lineHeight":  "32px"
+                                                                          },
+                                                          "label-caps":  {
+                                                                             "fontFamily":  "inter",
+                                                                             "fontSize":  "12px",
+                                                                             "fontWeight":  "700",
+                                                                             "lineHeight":  "16px",
+                                                                             "letterSpacing":  "0.1em"
+                                                                         },
+                                                          "title-sm":  {
+                                                                           "fontFamily":  "inter",
+                                                                           "fontSize":  "18px",
+                                                                           "fontWeight":  "600",
+                                                                           "lineHeight":  "24px"
+                                                                       }
+                                                      },
+                                       "spacing":  {
+                                                       "gutter-card":  "16px",
+                                                       "margin-page":  "24px",
+                                                       "stack-lg":  "32px",
+                                                       "stack-md":  "16px",
+                                                       "stack-sm":  "8px",
+                                                       "unit":  "4px"
+                                                   },
+                                       "headlineFontFamily":  "Be Vietnam Pro",
+                                       "bodyFontFamily":  "Inter",
+                                       "labelFontFamily":  "Inter"
+                                   }
+                     },
+    "version":  "1"
+}

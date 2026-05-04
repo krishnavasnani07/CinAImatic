@@ -1,0 +1,139 @@
+{
+    "name":  "assets/1cdeb889285c456ca69c92ec5b1a9e5b",
+    "designSystem":  {
+                         "displayName":  "Cinematic Light",
+                         "styleGuidelines":  "## Brand \u0026 Style\n\nThe design system is a high-fidelity adaptation of a dossier aesthetic, reimagined for a light-mode environment. It evokes the feeling of a premium printed technical document or a modern architectural blueprint. The brand personality is authoritative, precise, and sophisticated, targeting an audience that values clarity and intellectual rigor.\n\nThe visual style blends **Minimalism** with **Architectural Precision**. It utilizes a vast amount of intentional whitespace to direct focus, while using thin, sharp lines to define structural boundaries. The emotional response is one of calm confidence—the user should feel like they are reviewing a high-stakes intelligence briefing or a master-planned project. Every element exists with purpose, avoiding unnecessary decoration in favor of functional elegance.\n\n## Layout \u0026 Spacing\n\nThe layout philosophy follows a **Fixed-Hybrid Grid**. Content is housed within a structured 12-column system that emphasizes alignment and vertical rhythm. \n\nThe spacing rhythm is strictly mathematical, based on a 4px baseline grid. Large margins (40px+) are used at the edges of the viewport to create a \"framed\" effect, reinforcing the cinematic feel. Gutters are kept tight (20px) to maintain the relationship between grouped technical data, while larger vertical gaps (48px+) separate major content sections, creating a clear hierarchy of information blocks.\n\n## Elevation \u0026 Depth\n\nIn this design system, depth is achieved through **Tonal Layers** and **Low-Contrast Outlines** rather than aggressive shadows. \n\nThe background (#F5F5F7) acts as the floor. Primary content containers are pure white (#FFFFFF) with a 1px solid border in a subtle gray (#E4E4E7). To convey elevation, instead of a traditional shadow, use a \"ghost border\"—a second, slightly darker 1px stroke or a highly diffused, 2% opacity black shadow with 0px offset. This creates the illusion of the document being physically layered without breaking the clean, flat aesthetic of a blueprint.\n\n## Components\n\n### Buttons\nPrimary buttons use a solid Signal Red (#E50914) background with white text. They are perfectly rectangular. Secondary buttons use a black 1.5px border with black text. Hover states involve a slight background tint shift or a fill animation.\n\n### Input Fields\nFields are defined by a bottom-only 1.5px black border or a full 1px light gray stroke. Labels sit above the field in the \"label-caps\" style. Focus states transition the border to Signal Red.\n\n### Cards\nCards are white containers with sharp 1px borders. They should include a \"serial number\" or \"timestamp\" in the top-right corner using the `mono-label` typography to reinforce the dossier theme.\n\n### Chips \u0026 Tags\nTechnical tags are small, rectangular, and use a light gray background (#E4E4E7) with dark charcoal text. They are never rounded.\n\n### Lists\nLists are separated by thin horizontal rules (#E4E4E7). Each list item should have a generous vertical padding (16px) to ensure the technical data does not feel cluttered.\n\n### Checkboxes \u0026 Radios\nThese are strictly geometric. Checkboxes are sharp squares; radio buttons are sharp-edged diamonds or squares with a central dot to differentiate from standard rounded patterns.",
+                         "theme":  {
+                                       "colorMode":  "LIGHT",
+                                       "font":  "BE_VIETNAM_PRO",
+                                       "customColor":  "#E50914",
+                                       "headlineFont":  "BE_VIETNAM_PRO",
+                                       "bodyFont":  "BE_VIETNAM_PRO",
+                                       "labelFont":  "BE_VIETNAM_PRO",
+                                       "namedColors":  {
+                                                           "background":  "#f9f9fb",
+                                                           "error":  "#ba1a1a",
+                                                           "error_container":  "#ffdad6",
+                                                           "inverse_on_surface":  "#f0f0f2",
+                                                           "inverse_primary":  "#ffb4aa",
+                                                           "inverse_surface":  "#2f3132",
+                                                           "on_background":  "#1a1c1d",
+                                                           "on_error":  "#ffffff",
+                                                           "on_error_container":  "#93000a",
+                                                           "on_primary":  "#ffffff",
+                                                           "on_primary_container":  "#fff7f6",
+                                                           "on_primary_fixed":  "#410001",
+                                                           "on_primary_fixed_variant":  "#930007",
+                                                           "on_secondary":  "#ffffff",
+                                                           "on_secondary_container":  "#636262",
+                                                           "on_secondary_fixed":  "#1c1b1b",
+                                                           "on_secondary_fixed_variant":  "#474746",
+                                                           "on_surface":  "#1a1c1d",
+                                                           "on_surface_variant":  "#5e3f3b",
+                                                           "on_tertiary":  "#ffffff",
+                                                           "on_tertiary_container":  "#fbf8ff",
+                                                           "on_tertiary_fixed":  "#1a1b22",
+                                                           "on_tertiary_fixed_variant":  "#46464e",
+                                                           "outline":  "#936e69",
+                                                           "outline_variant":  "#e9bcb6",
+                                                           "primary":  "#b8000b",
+                                                           "primary_container":  "#e50914",
+                                                           "primary_fixed":  "#ffdad5",
+                                                           "primary_fixed_dim":  "#ffb4aa",
+                                                           "secondary":  "#5f5e5e",
+                                                           "secondary_container":  "#e2dfde",
+                                                           "secondary_fixed":  "#e5e2e1",
+                                                           "secondary_fixed_dim":  "#c8c6c5",
+                                                           "surface":  "#f9f9fb",
+                                                           "surface_bright":  "#f9f9fb",
+                                                           "surface_container":  "#eeeef0",
+                                                           "surface_container_high":  "#e8e8ea",
+                                                           "surface_container_highest":  "#e2e2e4",
+                                                           "surface_container_low":  "#f3f3f5",
+                                                           "surface_container_lowest":  "#ffffff",
+                                                           "surface_dim":  "#d9dadc",
+                                                           "surface_tint":  "#c0000c",
+                                                           "surface_variant":  "#e2e2e4",
+                                                           "tertiary":  "#595a62",
+                                                           "tertiary_container":  "#72727b",
+                                                           "tertiary_fixed":  "#e3e1ec",
+                                                           "tertiary_fixed_dim":  "#c6c5cf"
+                                                       },
+                                       "designMd":  "---\nname: Cinematic Light\ncolors:\n  surface: \u0027#f9f9fb\u0027\n  surface-dim: \u0027#d9dadc\u0027\n  surface-bright: \u0027#f9f9fb\u0027\n  surface-container-lowest: \u0027#ffffff\u0027\n  surface-container-low: \u0027#f3f3f5\u0027\n  surface-container: \u0027#eeeef0\u0027\n  surface-container-high: \u0027#e8e8ea\u0027\n  surface-container-highest: \u0027#e2e2e4\u0027\n  on-surface: \u0027#1a1c1d\u0027\n  on-surface-variant: \u0027#5e3f3b\u0027\n  inverse-surface: \u0027#2f3132\u0027\n  inverse-on-surface: \u0027#f0f0f2\u0027\n  outline: \u0027#936e69\u0027\n  outline-variant: \u0027#e9bcb6\u0027\n  surface-tint: \u0027#c0000c\u0027\n  primary: \u0027#b8000b\u0027\n  on-primary: \u0027#ffffff\u0027\n  primary-container: \u0027#e50914\u0027\n  on-primary-container: \u0027#fff7f6\u0027\n  inverse-primary: \u0027#ffb4aa\u0027\n  secondary: \u0027#5f5e5e\u0027\n  on-secondary: \u0027#ffffff\u0027\n  secondary-container: \u0027#e2dfde\u0027\n  on-secondary-container: \u0027#636262\u0027\n  tertiary: \u0027#595a62\u0027\n  on-tertiary: \u0027#ffffff\u0027\n  tertiary-container: \u0027#72727b\u0027\n  on-tertiary-container: \u0027#fbf8ff\u0027\n  error: \u0027#ba1a1a\u0027\n  on-error: \u0027#ffffff\u0027\n  error-container: \u0027#ffdad6\u0027\n  on-error-container: \u0027#93000a\u0027\n  primary-fixed: \u0027#ffdad5\u0027\n  primary-fixed-dim: \u0027#ffb4aa\u0027\n  on-primary-fixed: \u0027#410001\u0027\n  on-primary-fixed-variant: \u0027#930007\u0027\n  secondary-fixed: \u0027#e5e2e1\u0027\n  secondary-fixed-dim: \u0027#c8c6c5\u0027\n  on-secondary-fixed: \u0027#1c1b1b\u0027\n  on-secondary-fixed-variant: \u0027#474746\u0027\n  tertiary-fixed: \u0027#e3e1ec\u0027\n  tertiary-fixed-dim: \u0027#c6c5cf\u0027\n  on-tertiary-fixed: \u0027#1a1b22\u0027\n  on-tertiary-fixed-variant: \u0027#46464e\u0027\n  background: \u0027#f9f9fb\u0027\n  on-background: \u0027#1a1c1d\u0027\n  surface-variant: \u0027#e2e2e4\u0027\ntypography:\n  display:\n    fontFamily: Be Vietnam Pro\n    fontSize: 48px\n    fontWeight: \u0027800\u0027\n    lineHeight: \u00271.1\u0027\n    letterSpacing: -0.02em\n  h1:\n    fontFamily: Be Vietnam Pro\n    fontSize: 32px\n    fontWeight: \u0027700\u0027\n    lineHeight: \u00271.2\u0027\n    letterSpacing: -0.01em\n  h2:\n    fontFamily: Be Vietnam Pro\n    fontSize: 24px\n    fontWeight: \u0027700\u0027\n    lineHeight: \u00271.3\u0027\n  h3:\n    fontFamily: Be Vietnam Pro\n    fontSize: 18px\n    fontWeight: \u0027600\u0027\n    lineHeight: \u00271.4\u0027\n  body-lg:\n    fontFamily: Be Vietnam Pro\n    fontSize: 18px\n    fontWeight: \u0027400\u0027\n    lineHeight: \u00271.6\u0027\n  body-md:\n    fontFamily: Be Vietnam Pro\n    fontSize: 16px\n    fontWeight: \u0027400\u0027\n    lineHeight: \u00271.6\u0027\n  label-caps:\n    fontFamily: Be Vietnam Pro\n    fontSize: 12px\n    fontWeight: \u0027700\u0027\n    lineHeight: \u00271\u0027\n    letterSpacing: 0.1em\n  mono-label:\n    fontFamily: Be Vietnam Pro\n    fontSize: 13px\n    fontWeight: \u0027500\u0027\n    lineHeight: \u00271\u0027\n    letterSpacing: 0.02em\nspacing:\n  unit: 4px\n  xs: 4px\n  sm: 8px\n  md: 16px\n  lg: 24px\n  xl: 48px\n  gutter: 20px\n  margin: 40px\n---\n\n## Brand \u0026 Style\n\nThe design system is a high-fidelity adaptation of a dossier aesthetic, reimagined for a light-mode environment. It evokes the feeling of a premium printed technical document or a modern architectural blueprint. The brand personality is authoritative, precise, and sophisticated, targeting an audience that values clarity and intellectual rigor.\n\nThe visual style blends **Minimalism** with **Architectural Precision**. It utilizes a vast amount of intentional whitespace to direct focus, while using thin, sharp lines to define structural boundaries. The emotional response is one of calm confidence—the user should feel like they are reviewing a high-stakes intelligence briefing or a master-planned project. Every element exists with purpose, avoiding unnecessary decoration in favor of functional elegance.\n\n## Colors\n\nThe palette for this design system is rooted in a crisp, surgical foundation. The primary background is an off-white (#F5F5F7) that mimics premium gallery walls or heavy-stock paper. \n\n- **Primary Action:** \"Signal Red\" (#E50914) serves as the singular high-contrast disruptor. It is reserved exclusively for critical actions and state indicators to maintain its visual impact.\n- **Typography:** Black (#000000) and Deep Charcoal (#1A1A1A) provide maximum legibility and a sense of \"ink on paper.\"\n- **Surfaces:** Containers and active surfaces use pure white (#FFFFFF) to lift elements off the background, while tertiary grays are used for technical metadata and auxiliary information.\n\n## Typography\n\nThis design system utilizes **Be Vietnam Pro** across all levels to maintain a contemporary, geometric consistency. The typography is treated with the precision of an editorial layout:\n\n- **Headlines:** Use tighter letter-spacing and heavier weights to create a \"block\" effect, typical of cinematic title cards.\n- **Body Text:** Generous line heights are employed to ensure readability during long-form consumption.\n- **Labels:** A distinctive \"label-caps\" style is used for technical metadata and section headers, utilizing wide letter-spacing to evoke the look of a printed serial number or document index.\n\n## Layout \u0026 Spacing\n\nThe layout philosophy follows a **Fixed-Hybrid Grid**. Content is housed within a structured 12-column system that emphasizes alignment and vertical rhythm. \n\nThe spacing rhythm is strictly mathematical, based on a 4px baseline grid. Large margins (40px+) are used at the edges of the viewport to create a \"framed\" effect, reinforcing the cinematic feel. Gutters are kept tight (20px) to maintain the relationship between grouped technical data, while larger vertical gaps (48px+) separate major content sections, creating a clear hierarchy of information blocks.\n\n## Elevation \u0026 Depth\n\nIn this design system, depth is achieved through **Tonal Layers** and **Low-Contrast Outlines** rather than aggressive shadows. \n\nThe background (#F5F5F7) acts as the floor. Primary content containers are pure white (#FFFFFF) with a 1px solid border in a subtle gray (#E4E4E7). To convey elevation, instead of a traditional shadow, use a \"ghost border\"—a second, slightly darker 1px stroke or a highly diffused, 2% opacity black shadow with 0px offset. This creates the illusion of the document being physically layered without breaking the clean, flat aesthetic of a blueprint.\n\n## Shapes\n\nThe shape language is defined by **Sharpness**. All UI elements, including buttons, cards, and input fields, utilize a 0px border radius. This architectural approach reinforces the \"technical document\" narrative and provides a sense of rigidity and permanence. \n\nWhen elements are nested, the corners must remain perfectly square to create clean, intersecting lines that mimic drafting layouts.\n\n## Components\n\n### Buttons\nPrimary buttons use a solid Signal Red (#E50914) background with white text. They are perfectly rectangular. Secondary buttons use a black 1.5px border with black text. Hover states involve a slight background tint shift or a fill animation.\n\n### Input Fields\nFields are defined by a bottom-only 1.5px black border or a full 1px light gray stroke. Labels sit above the field in the \"label-caps\" style. Focus states transition the border to Signal Red.\n\n### Cards\nCards are white containers with sharp 1px borders. They should include a \"serial number\" or \"timestamp\" in the top-right corner using the `mono-label` typography to reinforce the dossier theme.\n\n### Chips \u0026 Tags\nTechnical tags are small, rectangular, and use a light gray background (#E4E4E7) with dark charcoal text. They are never rounded.\n\n### Lists\nLists are separated by thin horizontal rules (#E4E4E7). Each list item should have a generous vertical padding (16px) to ensure the technical data does not feel cluttered.\n\n### Checkboxes \u0026 Radios\nThese are strictly geometric. Checkboxes are sharp squares; radio buttons are sharp-edged diamonds or squares with a central dot to differentiate from standard rounded patterns.",
+                                       "colorVariant":  "FIDELITY",
+                                       "overridePrimaryColor":  "#E50914",
+                                       "overrideSecondaryColor":  "#1A1A1A",
+                                       "overrideTertiaryColor":  "#71717A",
+                                       "overrideNeutralColor":  "#F5F5F7",
+                                       "spacingScale":  2,
+                                       "typography":  {
+                                                          "body-lg":  {
+                                                                          "fontFamily":  "Be Vietnam Pro",
+                                                                          "fontSize":  "18px",
+                                                                          "fontWeight":  "400",
+                                                                          "lineHeight":  "1.6"
+                                                                      },
+                                                          "body-md":  {
+                                                                          "fontFamily":  "Be Vietnam Pro",
+                                                                          "fontSize":  "16px",
+                                                                          "fontWeight":  "400",
+                                                                          "lineHeight":  "1.6"
+                                                                      },
+                                                          "display":  {
+                                                                          "fontFamily":  "Be Vietnam Pro",
+                                                                          "fontSize":  "48px",
+                                                                          "fontWeight":  "800",
+                                                                          "lineHeight":  "1.1",
+                                                                          "letterSpacing":  "-0.02em"
+                                                                      },
+                                                          "h1":  {
+                                                                     "fontFamily":  "Be Vietnam Pro",
+                                                                     "fontSize":  "32px",
+                                                                     "fontWeight":  "700",
+                                                                     "lineHeight":  "1.2",
+                                                                     "letterSpacing":  "-0.01em"
+                                                                 },
+                                                          "h2":  {
+                                                                     "fontFamily":  "Be Vietnam Pro",
+                                                                     "fontSize":  "24px",
+                                                                     "fontWeight":  "700",
+                                                                     "lineHeight":  "1.3"
+                                                                 },
+                                                          "h3":  {
+                                                                     "fontFamily":  "Be Vietnam Pro",
+                                                                     "fontSize":  "18px",
+                                                                     "fontWeight":  "600",
+                                                                     "lineHeight":  "1.4"
+                                                                 },
+                                                          "label-caps":  {
+                                                                             "fontFamily":  "Be Vietnam Pro",
+                                                                             "fontSize":  "12px",
+                                                                             "fontWeight":  "700",
+                                                                             "lineHeight":  "1",
+                                                                             "letterSpacing":  "0.1em"
+                                                                         },
+                                                          "mono-label":  {
+                                                                             "fontFamily":  "Be Vietnam Pro",
+                                                                             "fontSize":  "13px",
+                                                                             "fontWeight":  "500",
+                                                                             "lineHeight":  "1",
+                                                                             "letterSpacing":  "0.02em"
+                                                                         }
+                                                      },
+                                       "spacing":  {
+                                                       "gutter":  "20px",
+                                                       "lg":  "24px",
+                                                       "margin":  "40px",
+                                                       "md":  "16px",
+                                                       "sm":  "8px",
+                                                       "unit":  "4px",
+                                                       "xl":  "48px",
+                                                       "xs":  "4px"
+                                                   },
+                                       "headlineFontFamily":  "Be Vietnam Pro",
+                                       "bodyFontFamily":  "Be Vietnam Pro",
+                                       "labelFontFamily":  "Be Vietnam Pro"
+                                   }
+                     },
+    "version":  "1"
+}

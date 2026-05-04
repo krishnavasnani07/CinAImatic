@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+
+
+<link rel="stylesheet" href="/src/style.css"></head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24 grid-bg">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#121212]/80 backdrop-blur-lg border-b border-white/5 flex justify-between items-center px-6 h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="terminal">terminal</span>
+<h1 class="font-['Be_Vietnam_Pro'] text-sm tracking-[0.2em] font-black uppercase text-on-tertiary-container">VECTOR_ENG_01</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-white/10 overflow-hidden ring-1 ring-on-tertiary-container/30">
+<img alt="Profile" class="w-full h-full object-cover grayscale opacity-80" data-alt="A professional studio portrait of a young man with a friendly expression, set against a dark, moody background with subtle cinematic lighting. The image maintains a high-end, polished aesthetic with deep shadows and soft highlights on the facial features, aligning with a premium movie streaming platform's user profile interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvJkCGSiHl55FbJ57Oy5jF0Bm39ALMs-AtXG8Fnf6Qsd7MSooYeqgNEr0qtXixcMFx-M6RGV8nYHt1QjsD3rCzTzbcMndsUHN4Nfc09i4UmnAWPMT9GqJGO8QAnejMHVP9IU5j-yNWmsBOmgWXC2lA56cJaQLyLnkJrJeXoIMbHh-MidPVNyeFEjv6IaI6G8GTU_yhVnXptK5O4kHMrl_c15NHSVpZLbubcHnsZ7I6NKDWCjWJGUXKK-_GaaiIN4-0-1bT0BPJKoU"/>
+</div>
+</header>
+<main class="pt-20 px-6 max-w-2xl mx-auto relative">
+<!-- Vector Search Input Section -->
+<div class="mt-stack-lg">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] font-mono text-on-tertiary-container tracking-widest uppercase">Input_Method: Semantic_Vector</span>
+<span class="text-[10px] font-mono text-on-primary-container">v1.2.4-stable</span>
+</div>
+<div class="relative group action-red-glow transition-all duration-300">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="text-on-tertiary-container font-mono font-bold text-lg">$</span>
+</div>
+<input class="w-full bg-surface-container-high border border-white/5 rounded-none py-4 pl-10 pr-4 text-on-surface placeholder:text-on-primary-container focus:ring-1 focus:ring-on-tertiary-container/50 transition-all font-mono text-sm uppercase tracking-tighter" placeholder="QUERY_SYSTEM_DB..." type="text"/>
+<div class="absolute right-4 inset-y-0 flex items-center">
+<span class="text-[10px] text-on-primary-container font-mono bg-background px-2 py-0.5 border border-white/10">ENT</span>
+</div>
+</div>
+</div>
+<!-- Semantic Match Results -->
+<section class="mt-stack-lg">
+<div class="flex items-center justify-between mb-stack-md border-b border-white/5 pb-2">
+<h2 class="font-mono text-[10px] text-on-primary-container tracking-widest uppercase">Semantic_Proximity_Matches</h2>
+<span class="text-[10px] font-mono text-secondary-fixed-dim">N=2,342</span>
+</div>
+<div class="space-y-stack-sm">
+<!-- Suggestion Item 1 -->
+<div class="flex items-center gap-4 p-3 border border-white/5 bg-surface-container/30 hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="w-12 h-16 overflow-hidden flex-shrink-0 border border-white/10">
+<img alt="Neon Drift" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="A cinematic movie poster for a sci-fi thriller featuring a lone astronaut standing on the edge of a neon-lit futuristic city. The color palette is dominated by deep blues and vibrant cyans with sharp red accents. The lighting is dramatic and moody, capturing a sense of epic scale and high-fidelity production." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5CZIMj-wkc9VVzOOoPzA3cyGMFn3J-WfQ0_6rByojQN4b-ANipwaKVH4ELPOHbjhH4k5CxiMnA8O0zivyzjWu6HFtk7qu04yHV_3WDsTydCQs4W4ZNarpKE6K1tzaHh4nUNqTSc_re-qSDiYlMQUQEMd4Q7lIs-vmcaGCNcT1TjJgcwMEJIf0APE1nfLG8E66KmRx6vFkLnGrU4uAqt6XsQ0jCSuDJpt1d6W8iohsvDEu8l8LZ3xgbp_UWOMElWNQE22_aHjj2F8"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-mono text-sm text-on-surface group-hover:text-on-tertiary-container transition-colors font-bold uppercase">Neon Drift</p>
+<p class="text-[10px] font-mono text-on-primary-container">META: SCI-FI / 2024</p>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-mono text-on-tertiary-container">CONF: 0.982</span>
+</div>
+</div>
+<div class="mt-2 w-full h-1 bg-surface-container-highest relative overflow-hidden">
+<div class="absolute inset-y-0 left-0 bg-on-tertiary-container w-[98%]"></div>
+</div>
+</div>
+</div>
+<!-- Suggestion Item 2 -->
+<div class="flex items-center gap-4 p-3 border border-white/5 bg-surface-container/30 hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="w-12 h-16 overflow-hidden flex-shrink-0 border border-white/10">
+<img alt="The Last Echo" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="A dark and atmospheric movie poster showcasing a rain-slicked urban street at night with glowing amber streetlights. The scene feels lonely and mysterious, utilizing a high-contrast film noir aesthetic with deep charcoal shadows and warm golden highlights. The composition is artistic and minimalist, emphasizing the cinematic mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjPn4UBhJtey4V7sUPDWM_bJhfNUDePS3iVLoadjeRididdTxg_WiCEN-nFCE2tj5ztl2JoPyoSkYtmC_LT80XeLahqYau8Ii0QxwlexjjqGXGrEB7j_YahFrk-hJ1ck4tyiP4afxVNjJgRi7fTVucazBAufO46Xf0rExYjsYYx5Qn8IOBcApIxHjQn2K0YtUdWDSguFY91Ff2zN_G2cDZOih_Mt-k4NlXHW52DYFwevbzW8DFnE6zgz1um-Z4-zp6whzD4ia-yMI"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-mono text-sm text-on-surface group-hover:text-on-tertiary-container transition-colors font-bold uppercase">The Last Echo</p>
+<p class="text-[10px] font-mono text-on-primary-container">META: MYSTERY / 2023</p>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-mono text-on-tertiary-container">CONF: 0.841</span>
+</div>
+</div>
+<div class="mt-2 w-full h-1 bg-surface-container-highest relative overflow-hidden">
+<div class="absolute inset-y-0 left-0 bg-on-tertiary-container w-[84%] opacity-60"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Primary Target -->
+<section class="mt-stack-lg">
+<div class="relative overflow-hidden aspect-[16/9] border border-white/10 p-6 flex flex-col justify-end">
+<div class="absolute inset-0 -z-10">
+<img alt="Cinema Background" class="w-full h-full object-cover opacity-20 grayscale" data-alt="A breathtaking cinematic wide shot of a classic cinema theater interior with plush red velvet seats and a large glowing screen. The atmosphere is filled with a soft haze and golden dust motes dancing in the projector light. The color scheme is a rich blend of deep shadows and warm, prestigious gold and red tones, creating an immersive premiere night feeling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtVrbBuAxuQromsGL0DOTbhO_Z8CgwbmJYXluN5RviTXdvz9dnp9C3s14HS9ee8LMUN79T7Fee51uwv1WV2IvjV8eHRoZMDVzWoTg1lGncHh5hMsTBuiFdw4On-r74YlGQ6hxz7yH054kPqknkHbuh6frUwjGTL9o6aiuvrDxJz6T_WXQTCvlK8eoTtuPOVsUN-3NSygctUgrZ1qCZXc18_84yDTMW4r_qsfaqiM9GskbgKrHnZ0tT41k42-5Q4yHP-F87WMTkw80"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+<div class="scan-line opacity-20"></div>
+</div>
+<div class="flex justify-between items-end">
+<div>
+<span class="inline-block px-2 py-0.5 border border-on-tertiary-container/30 text-on-tertiary-container text-[8px] font-mono mb-2">TARGET_ID: 104-556-9</span>
+<h2 class="font-display-lg text-3xl text-on-surface leading-none mb-2 uppercase tracking-tighter italic">Interstellar Redux</h2>
+<div class="flex items-center gap-3 text-[10px] font-mono text-on-surface-variant">
+<span class="text-on-tertiary-container">SC: 9.2</span>
+<span>DUR: 169M</span>
+<span>RT: PG-13</span>
+</div>
+</div>
+<button class="bg-on-tertiary-container text-white px-8 py-3 rounded-none font-mono font-bold text-xs hover:bg-on-tertiary-container/80 transition-all flex items-center gap-2 border-r-4 border-white/20">
+                        EXECUTE_PLAY
+                    </button>
+</div>
+</div>
+</section>
+<!-- Analytical Recommendation Grid -->
+<section class="mt-stack-lg mb-12">
+<div class="flex justify-between items-center mb-stack-md border-b border-white/5 pb-2">
+<h2 class="font-mono text-[10px] text-on-primary-container tracking-widest uppercase">Cross_Referenced_Clusters</h2>
+<button class="text-[10px] font-mono text-on-tertiary-container hover:underline">RESCAN_ALL</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-gutter-card">
+<!-- Movie Poster 1 -->
+<div class="border border-white/5 bg-surface-container/20 group cursor-pointer overflow-hidden">
+<div class="relative aspect-[2/3] overflow-hidden border-b border-white/5">
+<img alt="Fracture" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A conceptual movie poster featuring a surreal landscape of floating geometric islands under a violet and crimson sky. The visual style is highly stylized and modern, with a clean minimalist aesthetic and vibrant accent lighting that suggests an avant-garde science fiction narrative. The mood is dreamy, expensive, and visually arresting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwTFimZV8hJ8Ano-saOm42tRSEj5FUZKnSDJ1XdADoxLBSq-nh0xeN7XVeWUXEtjLEqVrXQ_YWQ_7d9e0leg8oI5n7txz2VDODKpdH7KVYCBkZ13zCM5wzOFl-PFGBp50ktM9LK1_v3trpnXTVR5LoPADyd6qwqwcPGL0N7cPu2Tjy9GQ0JBqPyAeLTL-vVIFruFOSQRx4vYiAm9x9wNsKUaD_0dYoODocRfIaIylxWKfKTkVPwZG6-pB1FAPagxDwJQ1BHEwchMk"/>
+<div class="absolute bottom-0 right-0 bg-background/80 backdrop-blur px-2 py-1 border-tl border-white/10 font-mono text-[8px] text-on-tertiary-container">
+                            MATCH: 94%
+                        </div>
+</div>
+<div class="p-3">
+<p class="font-mono text-xs text-on-surface truncate font-bold uppercase">Fracture</p>
+<div class="flex flex-wrap gap-1 mt-2">
+<span class="text-[8px] font-mono px-1 border border-white/10 text-on-primary-container bg-surface-container-high/50">SCI-FI</span>
+<span class="text-[8px] font-mono px-1 border border-white/10 text-on-primary-container bg-surface-container-high/50">SURREAL</span>
+</div>
+</div>
+</div>
+<!-- Movie Poster 2 -->
+<div class="border border-white/5 bg-surface-container/20 group cursor-pointer overflow-hidden">
+<div class="relative aspect-[2/3] overflow-hidden border-b border-white/5">
+<img alt="Midnight Protocol" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A moody, high-contrast cinematic portrait of a detective standing in the shadows of a rainy alleyway, illuminated only by a nearby neon sign casting a deep red glow. The image uses heavy glassmorphism elements and tonal layering to create a sense of depth and mystery, typical of a prestige crime drama film poster." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYt3cch1asVE9G-2BJppKUjIraJ73Tq-SNH6Ybduhy7vBM-XD7JgDnc8mj_0pYtkzNRV7rM2K_ij-JP4jJgEcurxqdVw-mESHXM2aVTPqNEkZyFH1WImPufF772VqjWYiV5l2OEkSPgcaQL8xoZ0Uc0Icn58sQWq8oc_DpJcSJl29dATjEB7Gb-SuNCSedR3yx8uB8N1AOI7rvgTWu97QdH8fWi2UwNgP0uLuL-cwRhS9pHI5OgC3NVhieHD8ZG-n2wcVH12Zi6VU"/>
+<div class="absolute bottom-0 right-0 bg-background/80 backdrop-blur px-2 py-1 border-tl border-white/10 font-mono text-[8px] text-on-tertiary-container">
+                            MATCH: 89%
+                        </div>
+</div>
+<div class="p-3">
+<p class="font-mono text-xs text-on-surface truncate font-bold uppercase">Midnight Protocol</p>
+<div class="flex flex-wrap gap-1 mt-2">
+<span class="text-[8px] font-mono px-1 border border-white/10 text-on-primary-container bg-surface-container-high/50">NOIR</span>
+<span class="text-[8px] font-mono px-1 border border-white/10 text-on-primary-container bg-surface-container-high/50">CYBER</span>
+</div>
+</div>
+</div>
+<!-- Movie Poster 3 -->
+<div class="border border-white/5 bg-surface-container/20 group cursor-pointer overflow-hidden hidden md:block">
+<div class="relative aspect-[2/3] overflow-hidden border-b border-white/5">
+<img alt="Void Walker" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A visually stunning movie poster of a futuristic spacecraft descending toward a glowing orange nebula. The scene is epic and cinematic, featuring professional-grade digital art with intricate details in the ship's design and a palette of deep blacks, fiery oranges, and stellar whites. The overall feel is one of awe and technological wonder." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYaao9A2aB6WFxVAjzLmGemBMt3b_j0bvPSgbgsGbr3WUf-FX32_MLwVuS6qmQ6Vkxgo3oD6I1jpSQDb6TcwQPqnE6dgplvQB-3lz0ZY0ECK_aI1GCsnhqAubfIdya8b4dBfm6RMT5oCbx2yRWjdVCTyuKYR2uSGCicFKIesHPO7XnNxQWoXpE8lNF1wpvFtuY_-zpfKklpkp8DwzV5Y_kRxRCeAp5_eVOiXvxKLVuhS1Wfy56WMxh11Zh2WIP9dBYVGdxfwlv6FA"/>
+<div class="absolute bottom-0 right-0 bg-background/80 backdrop-blur px-2 py-1 border-tl border-white/10 font-mono text-[8px] text-on-tertiary-container">
+                            MATCH: 82%
+                        </div>
+</div>
+<div class="p-3">
+<p class="font-mono text-xs text-on-surface truncate font-bold uppercase">Void Walker</p>
+<div class="flex flex-wrap gap-1 mt-2">
+<span class="text-[8px] font-mono px-1 border border-white/10 text-on-primary-container bg-surface-container-high/50">SPACE</span>
+<span class="text-[8px] font-mono px-1 border border-white/10 text-on-primary-container bg-surface-container-high/50">EPIC</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-4 bg-[#121212]/80 backdrop-blur-2xl border-t border-white/5 shadow-[0_-4px_24px_rgba(0,0,0,0.8)]">
+<button class="flex flex-col items-center justify-center text-on-primary-container opacity-60 hover:text-on-tertiary-container transition-colors group">
+<span class="material-symbols-outlined text-xl" data-icon="explore">explore</span>
+<span class="font-mono text-[8px] tracking-widest uppercase mt-1">DISC</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-tertiary-container font-bold relative group">
+<span class="material-symbols-outlined text-xl" data-icon="qr_code_scanner" data-weight="fill">qr_code_scanner</span>
+<span class="font-mono text-[8px] tracking-widest uppercase mt-1">QUERY</span>
+<div class="absolute -top-1 w-12 h-0.5 bg-on-tertiary-container"></div>
+</button>
+<button class="flex flex-col items-center justify-center text-on-primary-container opacity-60 hover:text-on-tertiary-container transition-colors group">
+<span class="material-symbols-outlined text-xl" data-icon="query_stats">query_stats</span>
+<span class="font-mono text-[8px] tracking-widest uppercase mt-1">DATA</span>
+</button>
+</nav>
+</body></html>

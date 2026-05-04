@@ -1,0 +1,20 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# AI Model and generated data
+movie_ai_model.pkl
+movies_synthetic_dataset.csv
+
+# Environments
+.venv/
+env/
+venv/
+.env
+node_modules/
+dist/
+.DS_Store
+
+# Large datasets (Source files)
+# dataset/
