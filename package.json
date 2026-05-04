@@ -2,6 +2,10 @@
   "name": "movie-recommendation-system",
   "version": "1.0.0",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krishnavasnani07/CinAImatic.git"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "vite",
