@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinAImatic - Component Showcase</title>
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="bg-[#0a0a0a] text-white font-sans">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-40 backdrop-blur-md bg-black/40 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center font-bold">🎬</div>
+                <span class="text-xl font-bold">CinAImatic Components</span>
+            </div>
+            <div class="flex gap-4">
+                <a href="/" class="px-6 py-2 text-white hover:text-red-500 transition-colors font-medium">
+                    ← Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-6 py-16">
+        <!-- Header -->
+        <div class="mb-16">
+            <h1 class="text-5xl font-bold mb-4">CinAImatic Frontend Components</h1>
+            <p class="text-xl text-gray-400">A showcase of all available UI components and their usage</p>
+        </div>
+
+        <!-- Buttons Section -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 border-b border-white/10 pb-4">Buttons</h2>
+            
+            <div class="space-y-8">
+                <!-- Primary Button -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-300">Primary Button</h3>
+                    <div class="glass-card p-6 rounded-lg">
+                        <button class="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-bold text-lg hover:shadow-lg hover:shadow-red-500/50 transition-all transform hover:scale-105">
+                            Get Started Now
+                        </button>
+                        <pre class="mt-4 bg-black/50 p-4 rounded text-sm overflow-x-auto"><code>&lt;button class="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-red-500/50"&gt;
+    Get Started Now
+&lt;/button&gt;</code></pre>
+                    </div>
+                </div>
+
+                <!-- Secondary Button -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-300">Secondary Button</h3>
+                    <div class="glass-card p-6 rounded-lg">
+                        <button class="px-8 py-4 border-2 border-white/30 text-white rounded-lg font-bold text-lg hover:bg-white/10 transition-all">
+                            Learn More
+                        </button>
+                        <pre class="mt-4 bg-black/50 p-4 rounded text-sm overflow-x-auto"><code>&lt;button class="px-8 py-4 border-2 border-white/30 text-white rounded-lg font-bold hover:bg-white/10"&gt;
+    Learn More
+&lt;/button&gt;</code></pre>
+                    </div>
+                </div>
+
+                <!-- Text Button -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-300">Text Button</h3>
+                    <div class="glass-card p-6 rounded-lg">
+                        <button class="px-6 py-2 text-white hover:text-red-500 transition-colors font-medium">
+                            Login
+                        </button>
+                        <pre class="mt-4 bg-black/50 p-4 rounded text-sm overflow-x-auto"><code>&lt;button class="px-6 py-2 text-white hover:text-red-500 transition-colors font-medium"&gt;
+    Login
+&lt;/button&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Inputs Section -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 border-b border-white/10 pb-4">Form Inputs</h2>
+            
+            <div class="glass-card p-8 rounded-lg space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Email Input</label>
+                    <input 
+                        type="email" 
+                        placeholder="your@email.com"
+                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-red-500 focus:outline-none text-white placeholder-gray-500 transition-colors"
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Password Input</label>
+                    <input 
+                        type="password" 
+                        placeholder="••••••••"
+                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-red-500 focus:outline-none text-white placeholder-gray-500 transition-colors"
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Checkbox</label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded border-white/20 bg-white/10 cursor-pointer">
+                        <span class="text-gray-300">I agree to the terms and conditions</span>
+                    </label>
+                </div>
+
+                <pre class="bg-black/50 p-4 rounded text-sm overflow-x-auto"><code>&lt;input class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:border-red-500 focus:outline-none text-white placeholder-gray-500 transition-colors" /&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- Cards Section -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 border-b border-white/10 pb-4">Card Components</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-xl hover:border-red-500/50 transition-all">
+                    <div class="w-12 h-12 bg-red-600/20 rounded-lg flex items-center justify-center mb-4 text-2xl">🤖</div>
+                    <h3 class="text-2xl font-bold mb-3">AI-Powered</h3>
+                    <p class="text-gray-300">Advanced neural networks analyze your preferences and suggest movies you'll love.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-xl hover:border-red-500/50 transition-all">
+                    <div class="w-12 h-12 bg-red-600/20 rounded-lg flex items-center justify-center mb-4 text-2xl">🎯</div>
+                    <h3 class="text-2xl font-bold mb-3">Personalized</h3>
+                    <p class="text-gray-300">Every recommendation is tailored to your unique taste and viewing history.</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-xl hover:border-red-500/50 transition-all">
+                    <div class="w-12 h-12 bg-red-600/20 rounded-lg flex items-center justify-center mb-4 text-2xl">⚡</div>
+                    <h3 class="text-2xl font-bold mb-3">Lightning Fast</h3>
+                    <p class="text-gray-300">Get instant recommendations powered by optimized vector matching algorithms.</p>
+                </div>
+            </div>
+
+            <pre class="mt-8 bg-black/50 p-4 rounded text-sm overflow-x-auto"><code>&lt;div class="glass-card p-8 rounded-xl hover:border-red-500/50 transition-all"&gt;
+    &lt;div class="w-12 h-12 bg-red-600/20 rounded-lg flex items-center justify-center"&gt;🤖&lt;/div&gt;
+    &lt;h3 class="text-2xl font-bold mb-3"&gt;Title&lt;/h3&gt;
+    &lt;p class="text-gray-300"&gt;Description&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        </section>
+
+        <!-- Colors Section -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 border-b border-white/10 pb-4">Color Palette</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass-card p-6 rounded-lg text-center">
+                    <div class="w-full h-24 bg-red-600 rounded-lg mb-4"></div>
+                    <p class="font-semibold">Red 600</p>
+                    <p class="text-sm text-gray-400">#dc2626</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-lg text-center">
+                    <div class="w-full h-24 bg-red-700 rounded-lg mb-4"></div>
+                    <p class="font-semibold">Red 700</p>
+                    <p class="text-sm text-gray-400">#b91c1c</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-lg text-center">
+                    <div class="w-full h-24 bg-purple-600 rounded-lg mb-4"></div>
+                    <p class="font-semibold">Purple 600</p>
+                    <p class="text-sm text-gray-400">#9333ea</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-lg text-center">
+                    <div class="w-full h-24 bg-white/10 border border-white/20 rounded-lg mb-4"></div>
+                    <p class="font-semibold">Glass</p>
+                    <p class="text-sm text-gray-400">rgba(255,255,255,0.1)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Section -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 border-b border-white/10 pb-4">Typography</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <p class="text-sm text-gray-400 mb-2">Heading 1 (48px)</p>
+                    <h1 class="text-6xl font-bold">Discover Your Next Cinematic Masterpiece</h1>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-400 mb-2">Heading 2 (36px)</p>
+                    <h2 class="text-4xl font-bold">Why Choose CinAImatic?</h2>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-400 mb-2">Heading 3 (28px)</p>
+                    <h3 class="text-3xl font-bold">AI-Powered Recommendations</h3>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-400 mb-2">Body Text (16px)</p>
+                    <p class="text-lg text-gray-300">Experience personalized movie recommendations powered by cutting-edge AI technology. Explore films tailored to your unique taste.</p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-400 mb-2">Small Text (14px)</p>
+                    <p class="text-sm text-gray-400">At least 8 characters with uppercase, lowercase, and numbers</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gradients Section -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 border-b border-white/10 pb-4">Gradients</h2>
+            
+            <div class="space-y-4">
+                <div class="h-32 rounded-lg bg-gradient-to-r from-red-600 to-red-700"></div>
+                <p class="text-gray-400">from-red-600 to-red-700</p>
+
+                <div class="h-32 rounded-lg bg-gradient-to-r from-red-500 via-pink-500 to-purple-500"></div>
+                <p class="text-gray-400">from-red-500 via-pink-500 to-purple-500</p>
+
+                <div class="h-32 rounded-lg hero-gradient"></div>
+                <p class="text-gray-400">.hero-gradient (custom)</p>
+            </div>
+        </section>
+
+        <!-- Layout Section -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 border-b border-white/10 pb-4">Layouts</h2>
+            
+            <div class="space-y-8">
+                <!-- Two Column -->
+                <div>
+                    <p class="text-gray-400 mb-4">Two Column Grid</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="glass-card p-6 rounded-lg h-24 flex items-center justify-center">Column 1</div>
+                        <div class="glass-card p-6 rounded-lg h-24 flex items-center justify-center">Column 2</div>
+                    </div>
+                </div>
+
+                <!-- Three Column -->
+                <div>
+                    <p class="text-gray-400 mb-4">Three Column Grid (Responsive)</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="glass-card p-6 rounded-lg h-24 flex items-center justify-center">Col 1</div>
+                        <div class="glass-card p-6 rounded-lg h-24 flex items-center justify-center">Col 2</div>
+                        <div class="glass-card p-6 rounded-lg h-24 flex items-center justify-center">Col 3</div>
+                    </div>
+                </div>
+
+                <!-- Container -->
+                <div>
+                    <p class="text-gray-400 mb-4">Container (Max Width)</p>
+                    <div class="max-w-2xl mx-auto glass-card p-6 rounded-lg text-center">
+                        <p>Centered container with max-width constraint</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links -->
+        <section class="mb-20 glass-card p-8 rounded-xl">
+            <h2 class="text-2xl font-bold mb-6">Quick Links</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="/" class="p-4 border border-white/20 rounded-lg hover:bg-white/5 transition-colors">
+                    🏠 Landing Page
+                </a>
+                <a href="/login" class="p-4 border border-white/20 rounded-lg hover:bg-white/5 transition-colors">
+                    🔐 Login Page
+                </a>
+                <a href="/signup" class="p-4 border border-white/20 rounded-lg hover:bg-white/5 transition-colors">
+                    📝 Signup Page
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-8 px-6 text-center text-gray-400">
+        <p>&copy; 2026 CinAImatic. Component Showcase - All rights reserved.</p>
+    </footer>
+</body>
+</html>

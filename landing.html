@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinAImatic - AI-Powered Movie Recommendations</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <script defer src="/src/landing.js"></script>
+</head>
+<body class="bg-[#050000] text-white font-sans overflow-x-hidden relative">
+    <!-- Modern Grid Background -->
+    <div class="fixed inset-0 z-0 bg-grid-pattern pointer-events-none"></div>
+
+    <!-- Animated Blob Backgrounds -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none flex justify-center items-center">
+        <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-red-600/20 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob"></div>
+        <div class="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-red-900/30 rounded-full mix-blend-screen filter blur-[120px] opacity-70 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-[550px] h-[550px] bg-red-500/10 rounded-full mix-blend-screen filter blur-[100px] opacity-70 animate-blob animation-delay-4000"></div>
+    </div>
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-md bg-black/40 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center font-bold shadow-[0_0_10px_rgba(220,38,38,0.5)]">🎬</div>
+                <span class="text-xl font-bold text-white tracking-wide">CinAImatic</span>
+            </div>
+            <div class="flex gap-4">
+                <button id="searchBtn" class="px-6 py-2 bg-red-600/20 text-red-400 border border-red-500/30 rounded-lg font-medium btn-ghost">
+                    <span class="mr-2">🔍</span> Search
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen overflow-x-hidden pt-[25vh] pb-20">
+
+        <!-- Hero Content -->
+        <div class="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
+            <div class="mb-6 inline-block">
+                <span class="px-4 py-2 bg-red-600/20 text-red-400 rounded-full text-sm font-semibold border border-red-500/30 shadow-[0_0_20px_rgba(220,38,38,0.2)]">
+                    ✨ Powered by Advanced AI
+                </span>
+            </div>
+
+            <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+                Discover Your Next
+                <span class="bg-gradient-to-r from-red-400 via-red-600 to-red-900 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(220,38,38,0.3)]"> Cinematic Masterpiece</span>
+            </h1>
+
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+                Experience personalized movie recommendations powered by cutting-edge AI technology. Explore films tailored to your unique taste.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+                <button id="neuralNetworkBtn" class="px-8 py-4 bg-gradient-to-r from-red-600 to-black text-white rounded-xl font-bold text-lg border border-red-500/50 btn-primary">
+                    Neural Network
+                </button>
+                <button id="imdbListBtn" class="px-8 py-4 bg-gradient-to-r from-black via-red-900 to-red-600 text-white rounded-xl font-bold text-lg border border-red-500/50 btn-secondary">
+                    IMDB List
+                </button>
+                <button id="moviesDossierBtn" class="px-8 py-4 bg-gradient-to-r from-red-800 to-black text-white rounded-xl font-bold text-lg border border-red-500/50 btn-primary">
+                    Movies Dossier
+                </button>
+            </div>
+
+
+        <!-- Dynamic Movies Section -->
+        <div id="moviesSection" class="hidden relative z-10 w-full px-6 pt-16 pb-20 opacity-0 transition-opacity duration-1000">
+            <div id="moviesContainer" class="max-w-7xl mx-auto space-y-24 text-left">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12 px-6 relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold mb-4">CinAImatic</h3>
+                    <p class="text-gray-400">AI-powered movie recommendations</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Features</a></li>
+                        <li><a href="#" class="hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">About</a></li>
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-gray-400">
+                <p>&copy; 2026 CinAImatic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
