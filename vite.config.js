@@ -15,6 +15,18 @@ screenFiles.forEach(file => {
 });
 
 export default defineConfig({
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8001',
+        changeOrigin: true,
+      },
+      '/ws': {
+        target: 'ws://localhost:8001',
+        ws: true,
+      },
+    },
+  },
   build: {
     rollupOptions: {
       input: inputs,

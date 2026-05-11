@@ -1,7 +1,7 @@
 def get_question_bank():
     """
     Mood-first, open-ended questions that let the user describe what they want.
-    Expanded to include highly specific genre intersections for the adaptive AI.
+    Expanded to include highly specific genre intersections for the neural architecture.
     Scale: 0 = not at all, 10 = absolutely yes.
     """
     bank = []

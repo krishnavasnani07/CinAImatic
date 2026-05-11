@@ -145,4 +145,74 @@
 <span class="font-['Be_Vietnam_Pro'] text-[10px] font-semibold tracking-tighter">Engine</span>
 </button>
 </nav>
+    <script>
+        const searchInput = document.querySelector('input[type="text"]');
+        const resultsGrid = document.querySelector('.grid-cols-2');
+        const mainHighlight = document.querySelector('section:nth-of-type(2)');
+
+        async function getRecommendations(mood) {
+            try {
+                const response = await fetch('/api/recommend', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        preferences: {}, // Basic extraction done server-side from mood_text
+                        top_n: 6,
+                        mood_text: mood
+                    })
+                });
+                const data = await response.json();
+                if (data.movies) {
+                    renderMovies(data.movies);
+                }
+            } catch (error) {
+                console.error('Inference failed:', error);
+            }
+        }
+
+        function renderMovies(movies) {
+            if (!movies || movies.length === 0) return;
+
+            // Update main highlight with the top match
+            const top = movies[0];
+            const titleEl = mainHighlight.querySelector('h2');
+            const ratingEl = mainHighlight.querySelector('.flex.items-center.gap-1');
+            const genresEl = mainHighlight.querySelector('.text-sm.text-on-surface-variant span:nth-of-type(2)');
+            
+            titleEl.textContent = top.title;
+            ratingEl.innerHTML = `<span class="material-symbols-outlined text-secondary-fixed-dim text-sm" data-icon="star" data-weight="fill">star</span> ${top.avg_rating}`;
+            genresEl.textContent = top.genres;
+
+            // Update the rest of the grid
+            resultsGrid.innerHTML = '';
+            movies.slice(1).forEach(movie => {
+                const card = document.createElement('div');
+                card.className = 'space-y-2 group cursor-pointer';
+                card.innerHTML = `
+                    <div class="relative aspect-[2/3] rounded-xl overflow-hidden shadow-lg transform group-hover:scale-[1.02] transition-transform duration-300">
+                        <img alt="${movie.title}" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=400">
+                        <div class="absolute top-2 right-2 glass-card px-2 py-1 rounded-md flex items-center gap-1">
+                            <span class="material-symbols-outlined text-secondary-fixed-dim text-[12px]" data-icon="star" data-weight="fill">star</span>
+                            <span class="text-[10px] font-bold text-on-surface">${movie.avg_rating}</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full p-2 bg-gradient-to-t from-black/80 to-transparent">
+                             <span class="text-[9px] font-bold text-emerald-400">AI MATCH: ${movie.confidence}%</span>
+                        </div>
+                    </div>
+                    <p class="font-title-sm text-on-surface truncate">${movie.title}</p>
+                    <p class="text-xs text-on-primary-container">${movie.genres}</p>
+                `;
+                resultsGrid.appendChild(card);
+            });
+        }
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const mood = searchInput.value;
+                if (mood.trim()) {
+                    getRecommendations(mood);
+                }
+            }
+        });
+    </script>
 </body></html>
