@@ -6,22 +6,31 @@
     <title>Movie Recommendation System</title>
     <link rel="stylesheet" href="/src/style.css">
 </head>
-<body class="bg-[#121212] text-white font-sans p-8">
-    <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl font-bold mb-8 text-red-500 tracking-widest uppercase">Movie Recommendation Screens</h1>
+<body class="bg-[#121212] text-white font-sans p-8 relative min-h-screen">
+    
+    <!-- Top Right Search Button -->
+    <div class="absolute top-8 right-8">
+        <a href="/screens/Search___Recommendations.html" title="Search & Recommendations" class="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 hover:bg-red-600 transition-colors border border-white/20 shadow-lg hover:shadow-[0_0_15px_rgba(220,38,38,0.6)] text-xl">
+            🔍
+        </a>
+    </div>
+
+    <div class="max-w-4xl mx-auto mt-32 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-16 text-red-500 tracking-widest uppercase drop-shadow-[0_0_10px_rgba(220,38,38,0.5)]">Movie Recommendation Screens</h1>
         
-        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <li><a href="/screens/Home_Discovery.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">Home Discovery</a></li>
-            <li><a href="/screens/Home_Discovery___Noir_Style.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">Home Discovery - Noir Style</a></li>
-            <li><a href="/screens/Home_Discovery___Cinematic_Light.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">Home Discovery - Cinematic Light</a></li>
-            <li><a href="/screens/Movie_Details.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">Movie Details</a></li>
-            <li><a href="/screens/Movie_Dossier___Detailed_View.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">Movie Dossier - Detailed View</a></li>
-            <li><a href="/screens/Search___Recommendations.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">Search & Recommendations</a></li>
-            <li><a href="/screens/Search___Vector_Matches.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">Search & Vector Matches</a></li>
-            <li><a href="/screens/How_It_Works.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">How It Works</a></li>
-            <li><a href="/screens/Engine_Blueprint___How_It_Works.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">Engine Blueprint - How It Works</a></li>
-            <li><a href="/screens/Neural_Network_Engine.html" class="block p-4 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">Neural Network Engine</a></li>
-        </ul>
+        <div class="flex flex-col sm:flex-row justify-center gap-6">
+            <a href="/screens/Neural_Network_Engine.html" class="block px-8 py-4 border border-white/10 rounded-xl hover:bg-red-600/20 hover:border-red-500 hover:scale-105 transition-all font-bold text-lg bg-white/5">
+                Neural Network Engine
+            </a>
+            
+            <a href="/imdb.html" class="block px-8 py-4 border border-white/10 rounded-xl hover:bg-red-600/20 hover:border-red-500 hover:scale-105 transition-all font-bold text-lg bg-white/5">
+                IMDb List
+            </a>
+            
+            <a href="/screens/Movie_Dossier___Detailed_View.html" class="block px-8 py-4 border border-white/10 rounded-xl hover:bg-red-600/20 hover:border-red-500 hover:scale-105 transition-all font-bold text-lg bg-white/5">
+                Movie Dossier
+            </a>
+        </div>
     </div>
 </body>
 </html>

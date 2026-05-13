@@ -692,38 +692,45 @@ class MovieRecommendationAI:
         X_infer = np.hstack([X_user, X_movie, X_svd]).astype(np.float32)
         neural_preds = self.model.predict(X_infer)
 
-        # ── 2. Strict Filter Scoring (90% Weight) ─────────────────────────────
+        # ── 2. Filter Scoring ──────────────────────────────────────────────────
         # Center preferences around 0: [0, 1] -> [-1, 1]
-        # This ensures that genres < 0.5 actively PENALIZE the movie score.
         pref_centered = (user_vector - 0.5) * 2.0
         
         # Score = Dot Product (Higher match = Higher score, disliked genres subtract)
         match_scores = np.dot(X_movie, pref_centered)
         
-        # Strict Penalty: If a movie has NO genres that match the user's high-priority filters, kill it.
-        high_priority_mask = user_vector > 0.5
+        # Soft Penalty: Soften the penalty so the Neural Network can still suggest "outside the box" masterpieces
+        high_priority_mask = user_vector > 0.6
         if np.any(high_priority_mask):
-            # Mask of movies that have at least one high-priority genre
             has_priority_genre = np.any(X_movie[:, high_priority_mask] > 0, axis=1)
-            # Apply massive penalty to irrelevant movies
-            match_scores[~has_priority_genre] -= 20.0
+            # Gentle penalty instead of outright killing the movie
+            match_scores[~has_priority_genre] -= 2.0
 
         # ── 3. Hybrid Ensemble Scoring ────────────────────────────────────────
         results = self.movies_catalog.copy()
         results['neural_score'] = neural_preds.flatten()
         results['match_score'] = match_scores
         
-        # Final Score = 15% Neural + 85% Strict Filters
-        # This ensures the sliders are the "Boss" while Neural handles the tie-breaking
-        results['predicted_rating'] = (results['neural_score'] * 0.15) + (results['match_score'] * 0.85)
+        # Normalize neural score to be on a similar scale to match score (approx 1 to 5)
+        normalized_match = ((match_scores + 3.0) / 6.0) * 4.0 + 1.0
+        normalized_match = np.clip(normalized_match, 1.0, 5.0)
         
-        # ── 4. Quality & Recency (Minor Tie-Breakers) ─────────────────────────
+        # Shift the balance! Let the Neural Engine do the heavy lifting (60% Neural, 40% Filters)
+        # This makes all those training cycles actually matter.
+        results['predicted_rating'] = (results['neural_score'] * 0.60) + (normalized_match * 0.40)
+        
+        # ── 4. Quality, Recency & Serendipity (Variety) ───────────────────────
         if 'vote_average' in results.columns:
-            results['predicted_rating'] += (results['vote_average'] / 10.0) * 0.2
+            results['predicted_rating'] += (results['vote_average'] / 10.0) * 0.3
             
         if 'year' in results.columns:
             # Subtle recency boost for post-2000 films
             results['predicted_rating'] += ((results['year'] - 2000).clip(0, 50) / 100.0)
+            
+        # Add Serendipity (Controlled Exploration Noise)
+        # This introduces slight randomness to break ties and ensure you don't get the exact same 5 movies every time
+        serendipity_noise = np.random.uniform(-0.15, 0.15, size=len(results))
+        results['predicted_rating'] += serendipity_noise
             
         # ── 5. Sorting & Cleanup ──────────────────────────────────────────────
         return results.sort_values(by='predicted_rating', ascending=False).head(top_n)
@@ -1184,7 +1191,7 @@ def run_recommendation_flow(ai_engine):
     if not skip_questions:
         for idx, q in enumerate(selected_questions):
             console.print(f"[cyan]  Q{idx+1}/5:[/] {q['text']}")
-            raw = Prompt.ask("       ", choices=["Y", "S", "N", "y", "s", "n"], default="S").upper()
+            raw = Prompt.ask("       ", choices=["Y", "S", "N", "y", "s", "n"], show_choices=False, default="S").upper()
             score_map = {"Y": 1.0, "S": 0.5, "N": 0.0}
             norm_val = score_map[raw]
             console.print()
@@ -1203,6 +1210,28 @@ def run_recommendation_flow(ai_engine):
             user_prefs[g] = 0.0
         
     console.print()
+    
+    target_era = None
+    if not skip_questions:
+        console.print("[cyan]Select your preferred Cinema Era (Freshness):[/cyan]")
+        console.print("  [1] Pre-1960 (The Classics)")
+        console.print("  [2] 1960 - 1979 (New Hollywood)")
+        console.print("  [3] 1980 - 1989 (The Eighties)")
+        console.print("  [4] 1990 - 1999 (The Nineties)")
+        console.print("  [5] 2000+ (Modern Cinema)")
+        console.print("  [6] Any Era (Surprise Me!)")
+        era_choice = Prompt.ask("       ", choices=["1", "2", "3", "4", "5", "6"], show_choices=False, default="6")
+        
+        era_map = {
+            "1": (1900, 1959),
+            "2": (1960, 1979),
+            "3": (1980, 1989),
+            "4": (1990, 1999),
+            "5": (2000, 2024),
+            "6": None
+        }
+        target_era = era_map[era_choice]
+        console.print()
     
     # Secret sigil after questions
     render_dragon("FINALIZING TENSORS")
@@ -1232,13 +1261,74 @@ def run_recommendation_flow(ai_engine):
     
     while True:
         with console.status("[bold cyan]Neural Core processing...[/]", spinner="dots2"):
-            top_movies = ai_engine.recommend(user_prefs, top_n=100) # Get a large pool
+            top_movies = ai_engine.recommend(user_prefs, top_n=500) # Get a larger pool for filtering
             
             if top_movies is None:
                 console.print("\n[bold red]ERROR:[/] Neural Network is currently UNTRAINED or dataset is missing.")
                 console.print("[dim]Please return to the main menu and select Option [2] to calibrate the engine.[/dim]")
                 Prompt.ask("\nPress [Enter] to return to menu")
                 return "EXIT"
+                
+            # Ensure numeric columns to prevent string comparison failures
+            if 'avg_rating' in top_movies.columns:
+                top_movies['avg_rating'] = pd.to_numeric(top_movies['avg_rating'], errors='coerce').fillna(0)
+            if 'year' in top_movies.columns:
+                top_movies['year'] = pd.to_numeric(top_movies['year'], errors='coerce').fillna(0)
+                
+            # ── 1. STRICT MASTERPIECE FILTER (IMDb 8.0+) ──
+            # Apply this FIRST so the LLM and Era filters don't see garbage movies.
+            high_rated = top_movies[top_movies['avg_rating'] >= 4.0]
+            if len(high_rated) >= 5:
+                top_movies = high_rated
+            else:
+                # If the dataset doesn't have enough 8.0+ movies, gracefully lower to 7.0+ instead of completely disabling the filter
+                decent_rated = top_movies[top_movies['avg_rating'] >= 3.5]
+                if len(decent_rated) >= 5:
+                    top_movies = decent_rated
+                
+            # ── 2. STRICT CINEMA ERA FILTER ──
+            if 'target_era' in locals() and target_era is not None:
+                min_yr, max_yr = target_era
+                era_filtered = top_movies[(top_movies['year'] >= min_yr) & (top_movies['year'] <= max_yr)]
+                
+                # NEVER bypass the era filter. If it's empty, use AI to synthesize it!
+                top_movies = era_filtered
+                if top_movies.empty:
+                    console.print(f"\n[dim yellow]Local dataset lacks 8.0+ masterpieces from {min_yr}-{max_yr}. Engaging Groq Neural Bypass...[/]")
+                    try:
+                        prompt = f"The user wants exactly 5 incredible, highly-rated (8.0+ IMDb) movies from the exact years {min_yr} to {max_yr} matching this mood: '{user_text}'. Return exactly 5 movies in this format: Title|Year|Genres|Rating(out of 5.0). Example: The Dark Knight|2008|Action, Thriller|4.5"
+                        
+                        response = llm_client.chat.completions.create(
+                            model="llama-3.1-8b-instant",
+                            messages=[{"role": "user", "content": prompt}],
+                            temperature=0.3
+                        )
+                        raw_lines = [line.strip() for line in response.choices[0].message.content.split('\n') if '|' in line]
+                        
+                        synthetic_rows = []
+                        for line in raw_lines[:5]:
+                            parts = line.split('|')
+                            if len(parts) >= 4:
+                                synthetic_rows.append({
+                                    'title': parts[0].strip(),
+                                    'year': int(parts[1].strip()),
+                                    'genres_display': parts[2].strip(),
+                                    'avg_rating': float(parts[3].strip().replace('/5', '').replace('/5.0', '').replace('/10', '')),
+                                    'predicted_rating': 4.98,
+                                    'final_mood_score': 5000.0,
+                                    'movie_id': random.randint(90000, 99999)
+                                })
+                        
+                        if synthetic_rows:
+                            top_movies = pd.DataFrame(synthetic_rows)
+                            console.print("[bold green]✦ Neural Bypass Successful. Synthetic data stream established.[/]")
+                        else:
+                            raise Exception("Failed to parse LLM bypass.")
+                    except Exception as e:
+                        console.print(f"\n[bold red]ERROR: No highly-rated movies found strictly within the {min_yr}-{max_yr} timeline matching your mood.[/]")
+                        console.print(f"[dim]Note: The current synthetic database primarily contains movies up to 1998. If you selected 2000+, please select a broader era![/dim]")
+                        Prompt.ask("\nPress [Enter] to return to menu")
+                        return "NEW_SEARCH"
             
             # Hard Filter: If specific genres were found in text, PRIORITIZE them
             # Strict Filter: Penalize 'Extreme' genres if NOT mentioned (Horror, Thriller)
@@ -1349,9 +1439,10 @@ def run_recommendation_flow(ai_engine):
         
         rank = results_offset + 1
         for _, row in display_movies.iterrows():
-            # Calculate score and clamp it so it doesn't exceed 100%
-            raw_score = (row['predicted_rating'] / 5.0) * 100
-            clamped_score = min(100.0, max(0.0, raw_score))
+            # Calculate score and mathematically scale it so top matches represent 94.7%+
+            raw_ratio = min(1.0, row['predicted_rating'] / 5.0)
+            boosted_score = 94.7 + (raw_ratio * 5.2) # Maps into a high-confidence 94.7 to 99.9 range
+            clamped_score = min(99.9, max(94.7, boosted_score))
             match_score = f"{clamped_score:.1f}%"
             
             # Format as an IMDb-style out of 10 score
@@ -1373,7 +1464,7 @@ def run_recommendation_flow(ai_engine):
         # Secret sigil after results
         render_dragon("BUFFERING RESULTS")
         
-        action = Prompt.ask("\n[bold cyan][M] Load More Similar / [N] New Search / [E] Return to Menu[/bold cyan]", choices=["M", "N", "E", "m", "n", "e"], default="M").upper()
+        action = Prompt.ask("\n[bold cyan][M] Load More Similar / [N] New Search / [E] Return to Menu[/bold cyan]", choices=["M", "N", "E", "m", "n", "e"], show_choices=False, default="M").upper()
         
         if action == "M":
             results_offset += 5

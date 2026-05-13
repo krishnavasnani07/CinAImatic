@@ -326,10 +326,68 @@ async def train_stream(epochs: int = 30, dataset: str = "synthetic"):
 
         # Save model is handled by _ai_engine.train internal call to save_model()
         _is_trained = True
+        
+        # ── Groq Auto-Tuner Meta-Learning ─────────────────────────────────
+        if Groq is not None and os.environ.get("GROQ_API_KEY"):
+            yield _sse("message", {"status": "loading", "message": "Triggering Groq Auto-Tuner for Meta-Optimization..."})
+            try:
+                client = Groq()
+                current_lr = getattr(_ai_engine.model, 'learning_rate_init', 0.001)
+                current_alpha = getattr(_ai_engine.model, 'alpha', 0.0001)
+                
+                t_log = time.strftime("%H:%M:%S")
+                await _broadcast_terminal(json.dumps({"type": "log", "text": f"[{t_log}] ► INITIATING GROQ META-LEARNING SUPERVISION"}))
+                await _broadcast_terminal(json.dumps({"type": "log", "text": f"[{t_log}]   Analyzing Training Pass — Loss: {_last_loss:.5f}, Acc: {_last_accuracy:.2f}%"}))
+                
+                # Ask Groq to act as a Meta-Optimizer
+                prompt = f"""You are an advanced AI Neural Network Auto-Tuner.
+The current MLPRegressor (Adam optimizer) finished {epochs} epochs.
+Metrics: Final Loss = {_last_loss:.6f}, Accuracy = {_last_accuracy:.2f}%
+Current Hyperparameters: learning_rate_init = {current_lr}, alpha (L2) = {current_alpha}.
+
+Your task is to analyze these metrics and suggest slightly adjusted, optimized hyperparameters for the next training run to prevent stagnation and improve the system. 
+Respond ONLY with a raw JSON object containing these keys:
+"learning_rate_init" (float, typically between 0.0001 and 0.01)
+"alpha" (float, typically between 0.00001 and 0.01)
+"reasoning" (a short 1-sentence technical explanation of why you made this adjustment)
+Do not use markdown blocks."""
+
+                completion = await asyncio.to_thread(
+                    client.chat.completions.create,
+                    model="llama3-8b-8192",
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.3,
+                    max_tokens=200
+                )
+                
+                response_text = completion.choices[0].message.content.strip()
+                if response_text.startswith("```json"):
+                    response_text = response_text[7:-3].strip()
+                    
+                import json as pyjson
+                new_params = pyjson.loads(response_text)
+                
+                # Apply new hyperparameters
+                _ai_engine.model.learning_rate_init = float(new_params["learning_rate_init"])
+                _ai_engine.model.alpha = float(new_params["alpha"])
+                _ai_engine.save_model() # Save with new params
+                
+                t2 = time.strftime("%H:%M:%S")
+                await _broadcast_terminal(json.dumps({"type": "log", "text": f"[{t2}] ◄ GROQ AUTO-TUNER RESPONSE RECEIVED"}))
+                await _broadcast_terminal(json.dumps({"type": "log", "text": f"[{t2}]   Reasoning: {new_params.get('reasoning', 'Optimized.')}"}))
+                await _broadcast_terminal(json.dumps({"type": "log", "text": f"[{t2}]   New parameters applied for next run. LR: {_ai_engine.model.learning_rate_init}, Alpha: {_ai_engine.model.alpha}"}))
+                
+                yield _sse("message", {"status": "loading", "message": "Groq Auto-Tuning applied. Model hyperparameters updated!"})
+                await asyncio.sleep(1)
+                
+            except Exception as e:
+                err_msg = f"Groq Auto-Tuner failed: {e}"
+                print(err_msg)
+                await _broadcast_terminal(json.dumps({"type": "log", "text": f"[sys] Warning: {err_msg}"}))
 
         yield _sse("message", {
             "status": "complete",
-            "message": "Training complete! Model saved.",
+            "message": "Training complete! Model saved and meta-optimized.",
             "final_loss": round(_last_loss, 6),
             "final_accuracy": round(_last_accuracy, 2),
             "epochs": epochs,

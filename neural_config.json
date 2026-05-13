@@ -1,8 +1,8 @@
 {
     "is_trained": true,
-    "last_loss": 0.2936869614802651,
-    "last_accuracy": 84.76,
-    "last_trained_date": "2026-05-11 23:59:40",
+    "last_loss": 0.37211228710938965,
+    "last_accuracy": 82.6,
+    "last_trained_date": "2026-05-13 23:35:21",
     "latent_dim": 10,
     "feature_count": 26
 }

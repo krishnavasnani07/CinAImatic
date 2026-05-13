@@ -1300,8 +1300,15 @@
             renderNetwork(parseInt(sliderDepth.value));
         });
 
+        // Sub-genre sliders: update vector display and debounce inference (same as main sliders)
         allGenreSliders.forEach(sl => {
-            if (sl) sl.addEventListener('change', handleGenreSliderChange);
+            if (sl) {
+                sl.addEventListener('input', () => {
+                    updateVectorDisplay();
+                    clearTimeout(inferenceTimeout);
+                    inferenceTimeout = setTimeout(runInference, 400);
+                });
+            }
         });
 
     });
