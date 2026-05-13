@@ -83,20 +83,45 @@ def _load_model_and_catalog():
     _last_accuracy = _ai_engine.last_accuracy
     _last_loss = _ai_engine.last_loss
 
+    # 1. Try full trained catalog (93MB, local only)
     if os.path.exists(DATA_FILE):
         try:
             _movies_catalog = pd.read_csv(DATA_FILE)
             _ai_engine.movies_catalog = _movies_catalog
+            print(f"[api] Full catalog loaded: {len(_movies_catalog):,} movies")
+            return
         except Exception as e:
-            print(f"[api] Could not load catalog: {e}")
-    else:
-        # Fallback to loading some data if available
+            print(f"[api] Could not load full catalog: {e}")
+
+    # 2. Fallback: seed catalog bundled in git (seed_catalog.csv.gz, 277KB)
+    SEED_FILE = "seed_catalog.csv.gz"
+    if os.path.exists(SEED_FILE):
         try:
-            m, _ = load_dataset1_full()
-            _movies_catalog = m
-            _ai_engine.movies_catalog = m
-        except:
-            pass
+            _movies_catalog = pd.read_csv(SEED_FILE, compression='gzip')
+            _ai_engine.movies_catalog = _movies_catalog
+            genre_cols = [c for c in _movies_catalog.columns if c.startswith('genre_')]
+            for col in genre_cols:
+                _movies_catalog[col] = pd.to_numeric(_movies_catalog[col], errors='coerce').fillna(0)
+            # Stub SVD factors (zeros) so recommend() doesn't crash before first training
+            _ai_engine.svd_factors = {
+                row['movie_id']: np.zeros(_ai_engine.latent_dim)
+                for _, row in _movies_catalog.iterrows()
+            }
+            print(f"[api] Seed catalog loaded: {len(_movies_catalog):,} movies "
+                  f"(run a training pass for full accuracy)")
+            return
+        except Exception as e:
+            print(f"[api] Could not load seed catalog: {e}")
+
+    # 3. Last resort: load from dataset1 if present locally
+    try:
+        m, _ = load_dataset1_full()
+        _movies_catalog = m
+        _ai_engine.movies_catalog = m
+        print(f"[api] Dataset1 fallback: {len(_movies_catalog):,} movies")
+    except Exception as e:
+        print(f"[api] No catalog available: {e}")
+
 
 
 async def _broadcast_terminal(message: str):
