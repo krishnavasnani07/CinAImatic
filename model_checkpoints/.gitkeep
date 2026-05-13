@@ -1,0 +1,4 @@
+# This file ensures git tracks the model_checkpoints directory.
+# Timestamped model checkpoint files (model_YYYYMMDD_HHMMSS_accXXpX.pkl)
+# are stored here automatically after every training run.
+# The best 5 checkpoints are kept; older/lower-accuracy ones are pruned.

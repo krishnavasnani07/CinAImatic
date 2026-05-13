@@ -218,6 +218,7 @@ console = Console()
 MODEL_FILE = "movie_ai_model.pkl"
 DATA_FILE = "movies_synthetic_dataset.csv"
 CONFIG_FILE = "neural_config.json"
+CHECKPOINT_DIR = "model_checkpoints"  # Timestamped training snapshots — never overwritten
 
 # --- Initialize LLM Clients ---
 LLM_ENABLED = False
@@ -622,9 +623,55 @@ class MovieRecommendationAI:
         self.save_model()
 
     def save_model(self):
-        with open(MODEL_FILE, 'wb') as f:
+        """Saves the model to the primary file AND a timestamped checkpoint."""
+        import shutil
+        from datetime import datetime
+
+        # 1. Atomic write to primary file (temp → rename to prevent corruption)
+        tmp_path = MODEL_FILE + '.tmp'
+        with open(tmp_path, 'wb') as f:
             pickle.dump(self.model, f)
+        os.replace(tmp_path, MODEL_FILE)  # atomic on same filesystem
+
+        # 2. Write timestamped checkpoint so training is NEVER lost
+        os.makedirs(CHECKPOINT_DIR, exist_ok=True)
+        ts = datetime.now().strftime('%Y%m%d_%H%M%S')
+        acc_tag = f'acc{self.last_accuracy:.1f}'.replace('.', 'p')
+        ckpt_name = f'model_{ts}_{acc_tag}.pkl'
+        ckpt_path = os.path.join(CHECKPOINT_DIR, ckpt_name)
+        shutil.copy2(MODEL_FILE, ckpt_path)
+
+        # 3. Keep only the best 5 checkpoints by accuracy to save disk space
+        self._prune_checkpoints(keep=5)
+
         self.save_state()
+        console.print(f"[dim green]✦ Model checkpoint saved → {ckpt_name}[/]")
+
+    def _prune_checkpoints(self, keep=5):
+        """Retains only the top-N checkpoints ranked by encoded accuracy."""
+        if not os.path.isdir(CHECKPOINT_DIR):
+            return
+        ckpts = [
+            os.path.join(CHECKPOINT_DIR, f)
+            for f in os.listdir(CHECKPOINT_DIR)
+            if f.startswith('model_') and f.endswith('.pkl')
+        ]
+        if len(ckpts) <= keep:
+            return
+        # Sort by accuracy tag embedded in filename (higher = better)
+        def acc_from_name(p):
+            try:
+                # filename: model_YYYYMMDD_HHMMSS_accXXpX.pkl
+                part = os.path.basename(p).split('_acc')[-1].replace('.pkl', '').replace('p', '.')
+                return float(part)
+            except:
+                return 0.0
+        ckpts.sort(key=acc_from_name, reverse=True)
+        for old in ckpts[keep:]:
+            try:
+                os.remove(old)
+            except:
+                pass
             
     def save_state(self):
         """Saves neural metadata to a JSON memory bank."""
@@ -658,18 +705,51 @@ class MovieRecommendationAI:
                 pass
 
     def load_model(self):
+        """Loads the primary model, with automatic fallback to best checkpoint."""
+        loaded = False
+
+        # Try primary file first
         if os.path.exists(MODEL_FILE):
             try:
                 with open(MODEL_FILE, 'rb') as f:
                     self.model = pickle.load(f)
-                
-                # Double-check persistence config
-                self.load_state()
-                if self.is_trained:
-                    self.load_catalog()
-                return True
-            except:
-                return False
+                loaded = True
+            except Exception as e:
+                console.print(f"[dim red]Primary model corrupt ({e}), trying checkpoint...[/]")
+
+        # Fallback: restore best checkpoint if primary failed or missing
+        if not loaded and os.path.isdir(CHECKPOINT_DIR):
+            ckpts = [
+                os.path.join(CHECKPOINT_DIR, fn)
+                for fn in os.listdir(CHECKPOINT_DIR)
+                if fn.startswith('model_') and fn.endswith('.pkl')
+            ]
+            if ckpts:
+                # Sort by accuracy tag, pick best
+                def acc_from_name(p):
+                    try:
+                        part = os.path.basename(p).split('_acc')[-1].replace('.pkl', '').replace('p', '.')
+                        return float(part)
+                    except:
+                        return 0.0
+                ckpts.sort(key=acc_from_name, reverse=True)
+                best = ckpts[0]
+                try:
+                    with open(best, 'rb') as f:
+                        self.model = pickle.load(f)
+                    # Restore primary from checkpoint
+                    import shutil
+                    shutil.copy2(best, MODEL_FILE)
+                    loaded = True
+                    console.print(f"[bold yellow]⚡ Restored model from checkpoint: {os.path.basename(best)}[/]")
+                except Exception as e:
+                    console.print(f"[dim red]Checkpoint restore failed: {e}[/]")
+
+        if loaded:
+            self.load_state()
+            if self.is_trained:
+                self.load_catalog()
+            return True
         return False
 
     def recommend(self, user_prefs_dict, top_n=5):

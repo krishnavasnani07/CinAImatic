@@ -3,8 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# AI Model and generated data
-movie_ai_model.pkl
+# Generated training data (too large for git — 98MB)
 movies_synthetic_dataset.csv
 
 # Environments
@@ -18,3 +17,6 @@ dist/
 
 # Large datasets (Source files)
 dataset/
+
+# Temp/scratch scripts
+get_history.py
