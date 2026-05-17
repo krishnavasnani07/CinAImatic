@@ -136,12 +136,19 @@ npm run dev
 
 ---
 
-## 📊 About the Datasets
+## 📊 Training Datasets
 
-The engine relies on `movies_synthetic_dataset.csv`. The backend `ai_engine.py` supports seamlessly switching to massive external datasets:
-*   **Synthetic**: Fast, generated user-ratings (default).
-*   **MovieLens**: Industry standard benchmark dataset.
-*   **TMDb**: Enormous catalog with rich genre flags.
+The `dataset/` folder is **not included in this repo** (total size ~1.56 GB). All datasets are free and publicly available.
+
+👉 **See [`dataset/README.md`](dataset/README.md) for full download instructions and folder setup.**
+
+| Dataset | Source | Size | Used For |
+|---|---|---|---|
+| The Movies Dataset (MovieLens Full) | [Kaggle](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) | ~900 MB | Ratings, metadata, credits, keywords |
+| TMDB 5000 | [Kaggle](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata) | ~44 MB | Movie metadata & credits |
+| TMDB Full v11 | [Kaggle](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies) | ~599 MB | Full catalog (930K movies) |
+| MovieLens Latest Small | [GroupLens](https://files.grouplens.org/datasets/movielens/ml-latest-small.zip) | ~3 MB | Lightweight ratings for fast training |
+| MovieLens 100K | [GroupLens](https://files.grouplens.org/datasets/movielens/ml-100k.zip) | ~5 MB | Classic benchmark ratings |
 
 ---
 
