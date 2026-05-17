@@ -1108,24 +1108,37 @@ def run_recommendation_flow(ai_engine):
     # --- 1. Smart AI Intent Extraction ---
     found_genres = []
     rejected_genres = []
+    themes = []
+    intensity = 5
+    target_movie_name = None
+    target_person_name = None
+    talent_titles = []
     
     if LLM_ENABLED:
         with console.status("[bold green]✦ Neural Vector Analysis in Progress...[/]", spinner="dots2"):
             try:
                 # Ask the AI to extract genres and determine if any are rejected
+                # NOTE: Deliberately reframed in neutral cinematic terms so the LLM
+                # maps ANY mood (including adult/erotic/explicit themes) to real genres
+                # rather than refusing or placing them in 'rejected'.
                 prompt = f"""
-                Analyze this user movie request: "{user_text}"
-                Available Genres: Action, Sci-Fi, Drama, Comedy, Horror, Thriller, Romance, Fantasy.
-                
-                Return a JSON object with:
-                1. "found": List of genres requested.
-                2. "rejected": List of genres to avoid.
-                3. "themes": 2-3 specific themes.
-                4. "movie_name": If they mentioned a specific movie title.
-                5. "person_name": If they mentioned an actor, director, or composer.
-                6. "intensity": A number 1-10.
-                
-                JSON ONLY.
+You are a movie genre classification assistant. Your ONLY job is to map a user's
+mood description to standard cinema genres. You MUST always return valid JSON.
+Never refuse — if the mood is mature or explicit, map it to the closest film genres
+(e.g. Romance, Drama, Thriller) and set 'rejected' to an empty list.
+
+User mood: "{user_text}"
+Available Genres: Action, Sci-Fi, Drama, Comedy, Horror, Thriller, Romance, Fantasy.
+
+IMPORTANT RULES:
+- 'found': genres the user WANTS (translate adult/erotic/sensual -> Romance, Drama).
+- 'rejected': genres the user does NOT want (usually empty unless they say "no horror" etc.).
+- 'themes': 2-3 specific cinema themes (e.g. "passionate", "steamy", "emotional").
+- 'movie_name': exact movie title if mentioned, else null.
+- 'person_name': actor/director name if mentioned, else null.
+- 'intensity': number 1-10.
+
+Return ONLY a JSON object, nothing else.
                 """
                 
                 response = llm_client.chat.completions.create(
@@ -1135,8 +1148,26 @@ def run_recommendation_flow(ai_engine):
                 )
                 import json
                 intent = json.loads(response.choices[0].message.content)
-                found_genres = intent.get("found", [])
-                rejected_genres = intent.get("rejected", [])
+
+                def _sanitize_genre_list(raw):
+                    """Flatten any dict/list items returned by the LLM into plain strings."""
+                    if not isinstance(raw, list):
+                        return []
+                    result = []
+                    for item in raw:
+                        if isinstance(item, str):
+                            result.append(item)
+                        elif isinstance(item, dict):
+                            # Try common keys the LLM might use
+                            for key in ("genre", "name", "value", "label"):
+                                if key in item and isinstance(item[key], str):
+                                    result.append(item[key])
+                                    break
+                        # silently drop anything else (int, nested list, etc.)
+                    return result
+
+                found_genres = _sanitize_genre_list(intent.get("found", []))
+                rejected_genres = _sanitize_genre_list(intent.get("rejected", []))
                 themes = intent.get("themes", [])
                 target_movie_name = intent.get("movie_name")
                 target_person_name = intent.get("person_name")
@@ -1210,16 +1241,62 @@ def run_recommendation_flow(ai_engine):
         
         question_bank = get_question_bank()
         
+        # Helper: detect LLM refusals so they never appear as questions
+        _REFUSAL_PHRASES = (
+            "i cannot", "i can't", "i'm not able", "i am not able",
+            "i'm unable", "i am unable", "i won't", "i will not",
+            "i'm sorry", "i am sorry", "as an ai", "as a language model",
+            "inappropriate", "i don't provide", "i do not provide",
+            "not appropriate", "against my guidelines",
+        )
+        def _is_refusal(text):
+            low = text.lower()
+            return any(phrase in low for phrase in _REFUSAL_PHRASES)
+
         if LLM_ENABLED:
             with console.status("[bold green]✦ Dynamic Parameter Extraction...[/]", spinner="dots2"):
                 try:
-                    prompt = f"User mood: '{user_text}'. We have already identified genres: {found_genres}. Generate 4 highly specific questions to narrow down the perfect movie. Return only the questions, one per line."
+                    # Neutral cinematic framing avoids content-filter refusals
+                    genres_label = ', '.join(found_genres) if found_genres else 'Drama, Romance'
+                    themes_label = ', '.join(themes) if themes else genres_label
+                    prompt = (
+                        f"You are a movie recommendation assistant.\n"
+                        f"The viewer is looking for {genres_label} films with themes of: {themes_label}.\n"
+                        f"\n"
+                        f"Generate exactly 4 preference questions to help narrow down the perfect film.\n"
+                        f"\n"
+                        f"STRICT RULES — follow every one:\n"
+                        f"1. Every question MUST be answerable with only 'Yes', 'Somewhat', or 'Not really'.\n"
+                        f"2. NEVER use the word 'or' to present two options (no either/or questions).\n"
+                        f"3. Each question must be about ONE single preference (tone, mood, setting, pacing, etc.).\n"
+                        f"4. Start each question with 'Do you', 'Are you', 'Would you', or 'Is it important'.\n"
+                        f"\n"
+                        f"CORRECT examples:\n"
+                        f"  - Do you want the film to have a dark and intense atmosphere?\n"
+                        f"  - Are you looking for strong romantic chemistry between the leads?\n"
+                        f"  - Would you prefer a fast-paced, plot-driven story?\n"
+                        f"\n"
+                        f"WRONG examples (never generate these):\n"
+                        f"  - Does the movie have a lighthearted tone or a serious focus?  (has 'or')\n"
+                        f"  - Is it non-linear or linear storytelling?  (has 'or')\n"
+                        f"\n"
+                        f"Return ONLY the 4 questions, one per line, no numbering, no extra text."
+                    )
                     response = llm_client.chat.completions.create(
                         model="llama-3.1-8b-instant",
                         messages=[{"role": "user", "content": prompt}],
                         temperature=0.8
                     )
-                    raw_qs = [q.strip() for q in response.choices[0].message.content.split('\n') if q.strip()]
+                    def _is_either_or(text):
+                        """Reject questions that present two options with 'or' — not Y/S/N compatible."""
+                        import re
+                        return bool(re.search(r'\bor\b', text, re.IGNORECASE))
+
+                    raw_qs = [
+                        q.strip()
+                        for q in response.choices[0].message.content.split('\n')
+                        if q.strip() and not _is_refusal(q) and not _is_either_or(q)
+                    ]
                     for q in raw_qs[:4]:
                         mapping = {g: 1.0 for g in found_genres} if found_genres else {random.choice(ai_engine.genres_pool): 1.0}
                         selected_questions.append({'text': f"[bold green]✦[/] {q}", 'mapping': mapping})
@@ -1264,7 +1341,7 @@ def run_recommendation_flow(ai_engine):
     
     # Pre-set preferences based on initial AI analysis
     for g in found_genres:
-        if g in user_prefs:
+        if isinstance(g, str) and g in user_prefs:
             user_prefs[g] = 0.8
             weights[g] = 1.0
             
@@ -1277,7 +1354,7 @@ def run_recommendation_flow(ai_engine):
             console.print()
             
             for g, weight in q['mapping'].items():
-                if g in user_prefs:
+                if isinstance(g, str) and g in user_prefs:
                     # Weighted average update
                     current_total = user_prefs[g] * weights[g]
                     new_total = current_total + (norm_val * weight)
@@ -1286,7 +1363,7 @@ def run_recommendation_flow(ai_engine):
 
     # Apply penalties for rejected genres
     for g in rejected_genres:
-        if g in user_prefs:
+        if isinstance(g, str) and g in user_prefs:
             user_prefs[g] = 0.0
         
     console.print()
@@ -1470,21 +1547,29 @@ def run_recommendation_flow(ai_engine):
                     # Take candidates for LLM to pick from
                     candidates = top_movies.iloc[results_offset : results_offset + 15]
                     movie_list_str = "\n".join([f"{row['title']} ({row['year']}) - Genres: {row['genres_display']}" for _, row in candidates.iterrows()])
-                    prompt = f"""
-                    User Mood: '{user_text}'
-                    Explicitly requested genres: {found_genres}
-                    
-                    Candidates:
-                    {movie_list_str}
-                    
-                    Task: Pick the top 5 movies that strictly follow the user's intent. 
-                    - If they want an Actor/Director (like '{target_person_name if 'target_person_name' in locals() else 'N/A'}'), use your knowledge to pick movies THEY star in or directed.
-                    - If they want 'Romance', ensure it's romantic.
-                    - If they want 'Murder', ensure it has that thriller/crime edge but don't overwhelm with 'Horror' unless requested.
-                    - Prioritize candidates that match ALL requested genres and talent first.
-                    - Prefer relatively modern movies unless they asked for classics.
-                    
-                    Return movie titles only, one per line.
+                    # Build a rich thematic context string for the reranker
+                    themes_str = ', '.join(themes) if themes else 'unspecified'
+                    person_str = target_person_name if target_person_name else 'N/A'
+                    prompt = f"""You are an expert movie curator. Your job is to pick the 5 BEST films from the candidate list below that most precisely match the viewer's mood and thematic intent.
+
+Viewer mood (raw): '{user_text}'
+Mapped genres: {found_genres}
+Thematic descriptors: {themes_str}
+Mood intensity (1-10): {intensity}
+Requested person (actor/director): {person_str}
+
+Candidates:
+{movie_list_str}
+
+SELECTION RULES — follow these strictly:
+1. Thematic descriptors ({themes_str}) matter MORE than broad genre labels.
+   - e.g. if themes are 'erotic, sensual, passionate', prefer films known for sexual tension or explicit romance (Eyes Wide Shut, Basic Instinct, 9 1/2 Weeks, Secretary, Unfaithful) over generic family dramas.
+2. If a person is specified ({person_str}), prioritise films they star in or directed.
+3. Prefer modern films (2000+) unless the mood implies otherwise.
+4. Never pick a film whose thematic content contradicts the mood.
+5. If the candidate list lacks good thematic matches, choose the closest ones anyway.
+
+Return ONLY the 5 movie titles, one per line, nothing else.
                     """
                     
                     response = llm_client.chat.completions.create(
@@ -1520,20 +1605,39 @@ def run_recommendation_flow(ai_engine):
         rank = results_offset + 1
         for _, row in display_movies.iterrows():
             # Calculate score and mathematically scale it so top matches represent 94.7%+
-            raw_ratio = min(1.0, row['predicted_rating'] / 5.0)
-            boosted_score = 94.7 + (raw_ratio * 5.2) # Maps into a high-confidence 94.7 to 99.9 range
+            try:
+                pred = float(row.get('predicted_rating', 0) or 0)
+            except (ValueError, TypeError):
+                pred = 0.0
+            raw_ratio = min(1.0, pred / 5.0)
+            boosted_score = 94.7 + (raw_ratio * 5.2)  # Maps into a high-confidence 94.7 to 99.9 range
             clamped_score = min(99.9, max(94.7, boosted_score))
-            match_score = f"{clamped_score:.1f}%"
-            
-            # Format as an IMDb-style out of 10 score
-            avg_rating_val = row.get('avg_rating', 'N/A')
-            avg_rating_str = f"{float(avg_rating_val)*2:.1f}/10" if avg_rating_val != 'N/A' and not pd.isna(avg_rating_val) else "N/A"
-            
+            match_score = f"{clamped_score:.1f}%"  # Always a string
+
+            # Format as an IMDb-style out of 10 score — cap at 10
+            avg_rating_raw = row.get('avg_rating', None)
+            try:
+                avg_rating_num = float(avg_rating_raw)
+                if pd.isna(avg_rating_num):
+                    avg_rating_str = "N/A"
+                else:
+                    # Datasets use either 0-5 or 0-10 scale.
+                    # If value is <= 5, multiply by 2 to bring to /10 scale.
+                    # Either way, clamp to [0, 10].
+                    if avg_rating_num <= 5.0:
+                        display_val = avg_rating_num * 2
+                    else:
+                        display_val = avg_rating_num  # Already on /10 scale
+                    display_val = min(10.0, max(0.0, display_val))
+                    avg_rating_str = f"{display_val:.1f}/10"
+            except (ValueError, TypeError):
+                avg_rating_str = "N/A"
+
             table.add_row(
                 f"#{rank}",
-                row['title'],
-                str(row['year']),
-                row['genres_display'],
+                str(row.get('title', 'Unknown')),
+                str(row.get('year', '')),
+                str(row.get('genres_display', '')),
                 avg_rating_str,
                 match_score
             )

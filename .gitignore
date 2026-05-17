@@ -2,21 +2,39 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
-# Generated training data (too large for git — 98MB)
+# Environment / secrets — NEVER commit
+.env
+*.env.*
+
+# Generated training data (too large for git)
 movies_synthetic_dataset.csv
+seed_catalog.csv.gz
 
-# Environments
+# Trained model binaries
+movie_ai_model.pkl
+model_checkpoints/
+
+# Environments / package managers
 .venv/
 env/
 venv/
-.env
 node_modules/
+package-lock.json
+
+# Build outputs
 dist/
 .DS_Store
 
-# Large datasets (Source files)
+# Large datasets (source files)
 dataset/
 
-# Temp/scratch scripts
+# Temp / scratch scripts
 get_history.py
+scratch_train.py
+test.py
+
+# IDE / system
+.vscode/
+*.log
