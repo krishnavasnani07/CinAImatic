@@ -27,20 +27,9 @@ package-lock.json
 dist/
 .DS_Store
 
-# Large datasets (source files) — exclude CSVs but keep the setup README
-dataset/**/*.csv
-dataset/**/*.zip
-dataset/**/*.data
-dataset/**/*.base
-dataset/**/*.test
-dataset/**/*.item
-dataset/**/*.user
-dataset/**/*.pl
-dataset/**/*.sh
-dataset/**/*.info
-dataset/**/*.genre
-dataset/**/*.occupation
-# Note: dataset/README.md is intentionally tracked
+# Large datasets — exclude everything inside dataset/ except the setup README
+dataset/**
+!dataset/README.md
 
 # Temp / scratch scripts
 get_history.py
