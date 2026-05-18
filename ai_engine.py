@@ -617,7 +617,6 @@ class MovieRecommendationAI:
             
             history.append({"epoch": epoch, "loss": self.last_loss, "accuracy": self.last_accuracy})
             yield history[-1]
-            time.sleep(0.1) # Artificial delay for visual effect
             
         self.is_trained = True
         self.save_model()

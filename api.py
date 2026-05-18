@@ -324,11 +324,40 @@ async def train_stream(epochs: int = 30, dataset: str = "synthetic"):
         yield _sse("message", {"status": "loading", "message": "Starting neural network training..."})
         await asyncio.sleep(0.1)
 
-        # ── Training Loop using AI Engine ─────────────────────────────────
-        for progress in _ai_engine.train(training_df, epochs=epochs):
-            # Allow event loop to breathe and respond to WS pings
-            await asyncio.sleep(0.01)
-            
+        # ── Training Loop — run in thread so event loop stays alive ──────────
+        import queue as _queue
+        epoch_queue: _queue.Queue = _queue.Queue()
+        _SENTINEL = object()
+
+        def _run_training():
+            """Runs the blocking train() generator in a worker thread."""
+            try:
+                for progress in _ai_engine.train(training_df, epochs=epochs):
+                    epoch_queue.put(progress)
+            except Exception as exc:
+                epoch_queue.put(exc)
+            finally:
+                epoch_queue.put(_SENTINEL)
+
+        # Kick off in background thread — does NOT block the event loop
+        loop = asyncio.get_event_loop()
+        loop.run_in_executor(None, _run_training)
+
+        while True:
+            # Poll the queue without blocking (yield control to event loop)
+            try:
+                item = epoch_queue.get_nowait()
+            except _queue.Empty:
+                await asyncio.sleep(0.05)  # give the event loop time to service WS pings
+                continue
+
+            if item is _SENTINEL:
+                break
+            if isinstance(item, Exception):
+                yield _sse("message", {"status": "error", "message": str(item)})
+                return
+
+            progress = item
             _last_loss = progress["loss"]
             _last_accuracy = progress["accuracy"]
             _last_trained_epochs = progress["epoch"]
@@ -347,7 +376,6 @@ async def train_stream(epochs: int = 30, dataset: str = "synthetic"):
             msg = f"[{t}]  Epoch {progress['epoch']:>3}/{epochs}  Loss={_last_loss:.5f}  Acc={_last_accuracy:.2f}%"
             asyncio.create_task(_broadcast_terminal(json.dumps({"type": "log", "text": msg})))
 
-            await asyncio.sleep(0.01) # Yield
 
         # Save model is handled by _ai_engine.train internal call to save_model()
         _is_trained = True
